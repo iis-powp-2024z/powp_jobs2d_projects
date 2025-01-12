@@ -2,7 +2,8 @@ package edu.kis.powp.jobs2d.drivers;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriverAdapter;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
+import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod
+
 import edu.kis.powp.observer.Publisher;
 import edu.kis.powp.observer.Subscriber;
 
@@ -11,9 +12,9 @@ import edu.kis.powp.observer.Subscriber;
  * components and features of the application to react on configuration changes.
  */
 public class DriverManager {
-
     private final Publisher publisher = new Publisher();
     private final TransformationDriverAdapter transformationDriverAdapter = new TransformationDriverAdapter();
+
 
     /**
      * @return Current driver.

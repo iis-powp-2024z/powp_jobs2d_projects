@@ -2,5 +2,6 @@
 /doc/
 /.classpath
 /.project
+.idea
 .settings
 .idea
