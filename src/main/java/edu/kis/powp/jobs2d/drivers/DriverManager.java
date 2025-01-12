@@ -1,7 +1,8 @@
 package edu.kis.powp.jobs2d.drivers;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
-import edu.kis.powp.jobs2d.LoggerDriver;
+import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriverAdapter;
+import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
 import edu.kis.powp.observer.Publisher;
 import edu.kis.powp.observer.Subscriber;
 
@@ -11,25 +12,33 @@ import edu.kis.powp.observer.Subscriber;
  */
 public class DriverManager {
 
-    private Job2dDriver currentDriver = new LoggerDriver();
     private final Publisher publisher = new Publisher();
-
-    /**
-     * @param driver Set the driver as current.
-     */
-    public synchronized void setCurrentDriver(Job2dDriver driver) {
-        currentDriver = driver;
-        publisher.notifyObservers();
-    }
+    private final TransformationDriverAdapter transformationDriverAdapter = new TransformationDriverAdapter();
 
     /**
      * @return Current driver.
      */
     public synchronized Job2dDriver getCurrentDriver() {
-        return currentDriver;
+        return transformationDriverAdapter;
+    }
+
+    /**
+     * @param driver Set the driver as current.
+     */
+    public synchronized void setCurrentDriver(Job2dDriver driver) {
+        transformationDriverAdapter.setDriver(driver);
+        publisher.notifyObservers();
     }
 
     public void addSubscriber(Subscriber subscriber) {
         publisher.addSubscriber(subscriber);
+    }
+
+    public void addTransformationMethod(TransformationMethod transformationMethod) {
+        transformationDriverAdapter.addTransformationMethod(transformationMethod);
+    }
+    
+    public void removeTransformationMethod(TransformationMethod transformationMethod) {
+        transformationDriverAdapter.removeTransformationMethod(transformationMethod);
     }
 }

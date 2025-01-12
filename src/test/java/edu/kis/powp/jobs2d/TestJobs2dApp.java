@@ -11,7 +11,7 @@ import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
-import edu.kis.powp.jobs2d.drivers.adapter.TransformationDriverAdapter;
+import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale2TimesUp;
 import edu.kis.powp.jobs2d.events.*;
 import edu.kis.powp.jobs2d.features.CommandsFeature;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
@@ -59,19 +59,17 @@ public class TestJobs2dApp {
 
         DrawPanelController drawerController = DrawerFeature.getDrawerController();
         Job2dDriver driver = new LineDriverAdapter(drawerController, LineFactory.getBasicLine(), "basic");
-        TransformationDriverAdapter transformationDriverAdapterLineSimulator = new TransformationDriverAdapter(driver);
 
-        DriverFeature.addDriver("Line Simulator", transformationDriverAdapterLineSimulator);
-        DriverFeature.getDriverManager().setCurrentDriver(transformationDriverAdapterLineSimulator);
+        DriverFeature.addDriver("Line Simulator", driver);
+        DriverFeature.getDriverManager().setCurrentDriver(driver);
 
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
-        DriverFeature.addDriver("Special line Simulator", new TransformationDriverAdapter(driver));
+        DriverFeature.addDriver("Special line Simulator", driver);
     }
 
     private static void setupTransformations(Application application) {
 
-        TransformationFeature.addDriver("Line Simulator", DriverFeature.getDriverManager().getCurrentDriver());
-        TransformationFeature.addDriver("Special line Simulator", DriverFeature.getDriverManager().getCurrentDriver());
+        TransformationFeature.addTransformation("Scale 2x", DriverFeature.getDriverManager(), new TransformationScale2TimesUp());
     }
 
     private static void setupWindows(Application application) {
