@@ -10,7 +10,7 @@ import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
-import edu.kis.powp.jobs2d.drivers.NewLoggerDriver;
+import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.events.SelectLoadSecretCommandOptionListener;
 import edu.kis.powp.jobs2d.events.SelectRunCurrentCommandOptionListener;
@@ -56,10 +56,10 @@ public class TestJobs2dApp {
      * @param application Application context.
      */
     private static void setupDrivers(Application application) {
-        Job2dDriver loggerDriver = new NewLoggerDriver(false);
+        Job2dDriver loggerDriver = new ImprovedLoggerDriver(false);
         DriverFeature.addDriver("Logger driver", loggerDriver);
 
-        Job2dDriver extendedLoggerDriver = new NewLoggerDriver(true);
+        Job2dDriver extendedLoggerDriver = new ImprovedLoggerDriver(true);
         DriverFeature.addDriver("Extended logger driver", extendedLoggerDriver);
 
         DrawPanelController drawerController = DrawerFeature.getDrawerController();

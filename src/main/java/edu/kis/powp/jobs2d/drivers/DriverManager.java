@@ -8,7 +8,7 @@ import edu.kis.powp.jobs2d.Job2dDriver;
  */
 public class DriverManager {
 
-    private Job2dDriver currentDriver = new NewLoggerDriver(false);
+    private Job2dDriver currentDriver = new ImprovedLoggerDriver(false);
 
     /**
      * @param driver Set the driver as current.

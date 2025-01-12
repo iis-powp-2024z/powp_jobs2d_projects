@@ -4,14 +4,14 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 
 import java.util.logging.Logger;
 
-public class NewLoggerDriver implements Job2dDriver {
+public class ImprovedLoggerDriver implements Job2dDriver {
     private final Logger logger = Logger.getLogger("global");
 
     private static long setPositionCount = 0;
     private static long operateToCount = 0;
     private boolean extendedLogger = false;
 
-    public NewLoggerDriver(boolean extendedLogger) {
+    public ImprovedLoggerDriver(boolean extendedLogger) {
         this.extendedLogger = extendedLogger;
     }
 
