@@ -74,6 +74,8 @@ public class TestJobs2dApp {
                 new TransformationScale(2.0));
         TransformationFeature.addTransformation("Flip X", DriverFeature.getDriverManager(),
                 new TransformationFlip(TransformationFlipAxis.X));
+        TransformationFeature.addTransformation("Flip Y", DriverFeature.getDriverManager(),
+                new TransformationFlip(TransformationFlipAxis.Y));
     }
 
     private static void setupWindows(Application application) {
