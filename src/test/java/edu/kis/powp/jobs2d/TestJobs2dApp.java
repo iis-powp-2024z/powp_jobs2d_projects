@@ -72,6 +72,8 @@ public class TestJobs2dApp {
     private static void setupTransformations(Application application) {
         TransformationFeature.addTransformation("Scale 2x", DriverFeature.getDriverManager(),
                 new TransformationScale(2.0));
+        TransformationFeature.addTransformation("Scale 0.5x", DriverFeature.getDriverManager(),
+                new TransformationScale(0.5));
         TransformationFeature.addTransformation("Flip X", DriverFeature.getDriverManager(),
                 new TransformationFlip(TransformationFlipAxis.X));
         TransformationFeature.addTransformation("Flip Y", DriverFeature.getDriverManager(),
