@@ -12,6 +12,8 @@ import edu.kis.powp.observer.Subscriber;
  * components and features of the application to react on configuration changes.
  */
 public class DriverManager {
+
+    private Job2dDriver currentDriver = new ImprovedLoggerDriver(false);
     private final Publisher publisher = new Publisher();
     private final TransformationDriverAdapter transformationDriverAdapter = new TransformationDriverAdapter();
 
