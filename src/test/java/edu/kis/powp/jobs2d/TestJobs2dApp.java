@@ -15,6 +15,7 @@ import edu.kis.powp.jobs2d.events.*;
 import edu.kis.powp.jobs2d.features.CommandsFeature;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
 import edu.kis.powp.jobs2d.features.DriverFeature;
+import edu.kis.powp.jobs2d.features.TransformationFeature;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -64,6 +65,9 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Special line Simulator", driver);
     }
 
+    private static void setupTransformations(Application application) {
+    }
+
     private static void setupWindows(Application application) {
 
         CommandManagerWindow commandManager = new CommandManagerWindow(CommandsFeature.getDriverCommandManager());
@@ -104,6 +108,8 @@ public class TestJobs2dApp {
                 CommandsFeature.setupCommandManager();
 
                 DriverFeature.setupDriverPlugin(app);
+                TransformationFeature.setupTransformationPlugin(app);
+                setupTransformations(app);
                 setupDrivers(app);
                 setupPresetTests(app);
                 setupCommandTests(app);
