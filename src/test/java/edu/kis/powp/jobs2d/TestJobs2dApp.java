@@ -12,7 +12,6 @@ import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
 import edu.kis.powp.jobs2d.events.*;
 import edu.kis.powp.jobs2d.features.*;
-import edu.kis.powp.observer.Publisher;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -69,8 +68,7 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Special line Simulator", driver);
     }
 
-    private static void setupTransformations(Application application) {
-        Publisher transformationPublisher = new Publisher();
+    private static void setupTransformations() {
         TransformationFeature.addTransformation("Scale 2x", DriverFeature.getDriverManager(), new TransformationScale(2.0));
         TransformationFeature.addTransformation("Scale 0.5x", DriverFeature.getDriverManager(), new TransformationScale(0.5));
         TransformationFeature.addTransformation("Flip X", DriverFeature.getDriverManager(), new TransformationFlip(TransformationFlipAxis.X));
@@ -78,7 +76,6 @@ public class TestJobs2dApp {
     }
 
     private static void setupWindows(Application application) {
-
         CommandManagerWindow commandManager = new CommandManagerWindow(CommandsFeature.getDriverCommandManager());
         application.addWindowComponent("Command Manager", commandManager);
 
@@ -92,7 +89,6 @@ public class TestJobs2dApp {
      * @param application Application context.
      */
     private static void setupLogger(Application application) {
-
         application.addComponentMenu(Logger.class, "Logger", 0);
         application.addComponentMenuElement(Logger.class, "Clear log", (ActionEvent e) -> application.flushLoggerOutput());
         application.addComponentMenuElement(Logger.class, "Fine level", (ActionEvent e) -> logger.setLevel(Level.FINE));
@@ -114,7 +110,7 @@ public class TestJobs2dApp {
 
                 DriverFeature.setupDriverPlugin(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
-                setupTransformations(app);
+                setupTransformations();
                 setupDrivers(app);
                 setupPresetTests(app);
                 setupCommandTests(app);

@@ -30,6 +30,7 @@ public class ToggleTransformationOptionListener implements ActionListener {
         } else {
             transformationDriver.removeTransformationMethod(transformationMethod);
         }
+
         publisher.notifyObservers();
     }
 
