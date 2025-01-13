@@ -5,12 +5,12 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransformationDriverAdapter implements Job2dDriver {
+public class TransformationDriver implements Job2dDriver {
     private final List<TransformationMethod> transformationMethods = new ArrayList<>();
     private Job2dDriver driver;
     private int x = 0, y = 0;
 
-    public TransformationDriverAdapter() {
+    public TransformationDriver() {
     }
 
     @Override
