@@ -1,7 +1,7 @@
 package edu.kis.powp.jobs2d.drivers;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
-import edu.kis.powp.jobs2d.LoggerDriver;
+
 import edu.kis.powp.observer.Publisher;
 import edu.kis.powp.observer.Subscriber;
 
@@ -11,8 +11,10 @@ import edu.kis.powp.observer.Subscriber;
  */
 public class DriverManager {
 
-    private Job2dDriver currentDriver = new LoggerDriver();
+
+    private Job2dDriver currentDriver = new ImprovedLoggerDriver(false);
     private final Publisher publisher = new Publisher();
+
 
     /**
      * @param driver Set the driver as current.
