@@ -26,7 +26,7 @@ public class CompoundCommandBuilder {
     }
 
     public CompoundCommand build() {
-        if (name == null || !name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalStateException("Name cannot be null");
         }
 
