@@ -4,6 +4,7 @@ import edu.kis.powp.jobs2d.command.CompoundCommand;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class CompoundCommandBuilder {
@@ -15,7 +16,10 @@ public class CompoundCommandBuilder {
         return this;
     }
 
-    public CompoundCommandBuilder addCommands(List<DriverCommand> commands) {
+    public CompoundCommandBuilder addCommands(Collection<? extends DriverCommand> commands) {
+        if (null == commands || commands.contains(null)) {
+            throw new IllegalArgumentException("Commands cannot be null or have null elements");
+        }
         commandList.addAll(commands);
         return this;
     }
