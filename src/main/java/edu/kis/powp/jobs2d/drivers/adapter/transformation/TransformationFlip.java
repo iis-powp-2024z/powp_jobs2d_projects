@@ -14,12 +14,10 @@ public class TransformationFlip implements TransformationMethod {
     }
 
     @Override
-    public int transformX(int x) {
-        return x * this.xFlipMultiplier;
-    }
+    public TransformationPoint transform(TransformationPoint transformationPoint) {
+        transformationPoint.setX(transformationPoint.getX() * this.xFlipMultiplier);
+        transformationPoint.setY(transformationPoint.getY() * this.yFlipMultiplier);
 
-    @Override
-    public int transformY(int y) {
-        return y * this.yFlipMultiplier;
+        return transformationPoint;
     }
 }

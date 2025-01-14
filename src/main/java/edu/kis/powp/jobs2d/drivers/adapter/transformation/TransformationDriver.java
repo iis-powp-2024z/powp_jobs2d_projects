@@ -2,12 +2,8 @@ package edu.kis.powp.jobs2d.drivers.adapter.transformation;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 
-import javax.xml.crypto.dsig.Transform;
-import java.util.ArrayList;
-import java.util.List;
-
 public class TransformationDriver implements Job2dDriver {
-    private final TransformationComposite transformationComposite = new TransformationComposite();
+    private final TransformationsComposite transformationsComposite = new TransformationsComposite();
     private Job2dDriver driver;
     private int x = 0, y = 0;
 
@@ -17,7 +13,7 @@ public class TransformationDriver implements Job2dDriver {
     @Override
     public void setPosition(int x, int y) {
         TransformationPoint transformationPoint = new TransformationPoint(x, y);
-        transformationPoint = transformationComposite.execute(transformationPoint);
+        transformationPoint = transformationsComposite.transform(transformationPoint);
 
         this.x = transformationPoint.getX();
         this.y = transformationPoint.getY();
@@ -27,7 +23,7 @@ public class TransformationDriver implements Job2dDriver {
     @Override
     public void operateTo(int x, int y) {
         TransformationPoint transformationPoint = new TransformationPoint(x, y);
-        transformationPoint = transformationComposite.execute(transformationPoint);
+        transformationPoint = transformationsComposite.transform(transformationPoint);
 
         driver.operateTo(transformationPoint.getX(), transformationPoint.getY());
     }
@@ -37,10 +33,10 @@ public class TransformationDriver implements Job2dDriver {
     }
 
     public void addTransformationMethod(TransformationMethod transformationMethod) {
-        transformationComposite.add(transformationMethod);
+        transformationsComposite.add(transformationMethod);
     }
 
     public void removeTransformationMethod(TransformationMethod transformationMethod) {
-        transformationComposite.remove(transformationMethod);
+        transformationsComposite.remove(transformationMethod);
     }
 }

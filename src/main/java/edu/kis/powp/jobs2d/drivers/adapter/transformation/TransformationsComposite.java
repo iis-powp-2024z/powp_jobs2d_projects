@@ -3,8 +3,7 @@ package edu.kis.powp.jobs2d.drivers.adapter.transformation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransformationComposite {
-
+public class TransformationsComposite implements TransformationMethod {
     private List<TransformationMethod> transformationMethods = new ArrayList<>();
 
     public List<TransformationMethod> getTransformationMethods() {
@@ -19,13 +18,12 @@ public class TransformationComposite {
         this.transformationMethods.remove(transformationMethod);
     }
 
-    public TransformationPoint execute(TransformationPoint transformationPoint) {
-        for (TransformationMethod method : transformationMethods) {
-            transformationPoint.setX(method.transformX(transformationPoint.getX()));
-            transformationPoint.setY(method.transformY(transformationPoint.getY()));
+    @Override
+    public TransformationPoint transform(TransformationPoint transformationPoint) {
+        for (TransformationMethod transformationMethod : transformationMethods) {
+            transformationPoint = transformationMethod.transform(transformationPoint);
         }
 
         return transformationPoint;
     }
-
 }

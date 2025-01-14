@@ -9,12 +9,10 @@ public class TransformationScale implements TransformationMethod {
     }
 
     @Override
-    public int transformX(int x) {
-        return (int) (x * this.scale);
-    }
+    public TransformationPoint transform(TransformationPoint transformationPoint) {
+        transformationPoint.setX((int)(transformationPoint.getX() * this.scale));
+        transformationPoint.setY((int)(transformationPoint.getY() * this.scale));
 
-    @Override
-    public int transformY(int y) {
-        return (int) (y * this.scale);
+        return transformationPoint;
     }
 }
