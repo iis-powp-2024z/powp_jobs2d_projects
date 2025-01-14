@@ -15,9 +15,9 @@ import edu.kis.powp.jobs2d.command.SetPositionCommand;
  */
 
 public class RectangleShape implements Shape{
-    private int width;
-    private int height;
-	
+    private final int width;
+    private final int height;
+
     /**
      * Create a RectangleShape with given dimensions.
      * 
@@ -91,12 +91,15 @@ public class RectangleShape implements Shape{
      */
 	@Override
     public CompoundCommand getCommands(String name) {
+        int x = -230;
+        int y = -150;
+
 	    List<DriverCommand> commands = new ArrayList<>();
-        commands.add(new SetPositionCommand(0, 0));
-        commands.add(new OperateToCommand(this.width, 0));
-        commands.add(new OperateToCommand(this.width, this.height));
-        commands.add(new OperateToCommand(0, this.height));
-        commands.add(new OperateToCommand(0, 0));
+        commands.add(new SetPositionCommand(x, y));
+        commands.add(new OperateToCommand(x + this.width, y));
+        commands.add(new OperateToCommand(x + this.width, y + this.height));
+        commands.add(new OperateToCommand(x, y + this.height));
+        commands.add(new OperateToCommand(x, y));
 
         return new CompoundCommand(commands, name);
 	}
