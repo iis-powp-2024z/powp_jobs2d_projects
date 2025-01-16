@@ -1,11 +1,13 @@
 package edu.kis.powp.jobs2d.events;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.kis.powp.jobs2d.ShapeCommandFactory;
+import edu.kis.powp.jobs2d.command.CompoundCommand;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.OperateToCommand;
 import edu.kis.powp.jobs2d.command.SetPositionCommand;
@@ -16,7 +18,8 @@ public class SelectLoadSecretCommandOptionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        CompoundCommand secretCommand = new ShapeCommandFactory().createSecretShape();
         DriverCommandManager manager = CommandsFeature.getDriverCommandManager();
-        manager.setCurrentCommand(new ShapeCommandFactory().createSecretShape(), "TopSecretCommand");
+        manager.setCurrentCommand(secretCommand);
     }
 }
