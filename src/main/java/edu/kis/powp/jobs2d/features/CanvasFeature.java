@@ -7,9 +7,12 @@ import edu.kis.powp.jobs2d.shapes.RectangleShape;
 import edu.kis.powp.jobs2d.shapes.Shape;
 
 import javax.swing.*;
+import java.util.List;
 
 public class CanvasFeature {
     private static Application application;
+
+    private static List<Canvas> canvases = null;
 
     /**
      * Initializes and sets up the canvas feature for the application.
@@ -23,24 +26,29 @@ public class CanvasFeature {
         application.addComponentMenu(CanvasFeature.class, "Canvas Settings", 0);
 
         JMenu mainMenu = getMainMenu();
-        String[] aFormatsMenuItems = {"a0", "a1", "a2", "a3", "a4"};
-        String[] bFormatsMenuItems = {"b0", "b1", "b2", "b3", "b4"};
 
         JMenu aFormatsMenu = new JMenu("a formats");
         JMenu bFormatsMenu = new JMenu("b formats");
 
-        for (String itemName : aFormatsMenuItems) {
-            addMenuItem(aFormatsMenu, new RectangleShape(itemName), itemName);
+        for (Canvas canvas : canvases) {
+            String name = canvas.getName();
+
+            if (name.toLowerCase().startsWith("a")) {
+                addMenuItem(aFormatsMenu, canvas, name);
+            } else if (name.toLowerCase().startsWith("b")) {
+                addMenuItem(bFormatsMenu, canvas, name);
+            } else {
+                addMenuItem(mainMenu, canvas, name);
+            }
         }
 
-        for (String itemName : bFormatsMenuItems) {
-            addMenuItem(bFormatsMenu, new RectangleShape(itemName), itemName);
-        }
-
-        addMenuItem(mainMenu, new EllipseShape(200, 200), "eclipse");
 
         mainMenu.add(aFormatsMenu);
         mainMenu.add(bFormatsMenu);
+    }
+
+    public static void setCanvases(List<Canvas> canvases) {
+        CanvasFeature.canvases = canvases;
     }
 
     /**
@@ -81,12 +89,12 @@ public class CanvasFeature {
      * The item is associated with a shape and its action triggers the drawing of a canvas.
      *
      * @param menu The menu to which the item will be added.
-     * @param shape The shape associated with the menu item.
+     * @param canvas The shape associated with the menu item.
      * @param name The name of the menu item.
      */
-    private static void addMenuItem(JMenu menu, Shape shape, String name) {
+    private static void addMenuItem(JMenu menu, Canvas canvas, String name) {
         JMenuItem menuItem = new JMenuItem(name);
-        menuItem.addActionListener(e -> drawCanvas(new Canvas(shape)));
+        menuItem.addActionListener(e -> drawCanvas(canvas));
         menu.add(menuItem);
     }
 

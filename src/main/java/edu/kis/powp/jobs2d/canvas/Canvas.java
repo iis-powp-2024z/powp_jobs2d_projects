@@ -10,14 +10,16 @@ import edu.kis.powp.jobs2d.shapes.Shape;
  */
 public class Canvas {
     private final Shape shape;
+    private final String name;
 
     /**
      * Create a canvas with a given shape.
      *
      * @param shape The shape representing the "outline" of this canvas or its visible area.
      */
-    public Canvas(Shape shape) {
+    public Canvas(Shape shape, String name) {
         this.shape = shape;
+        this.name = name;
     }
 
     /**
@@ -28,6 +30,10 @@ public class Canvas {
     public void draw(DriverManager driverManager) {
         CompoundCommand commands = shape.getCommands("Canvas shape");
         commands.execute(driverManager.getCurrentDriver());
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**

@@ -2,12 +2,15 @@ package edu.kis.powp.jobs2d;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
+import edu.kis.powp.jobs2d.canvas.Canvas;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
@@ -18,6 +21,8 @@ import edu.kis.powp.jobs2d.features.DrawerFeature;
 import edu.kis.powp.jobs2d.features.DriverFeature;
 import edu.kis.powp.jobs2d.features.MouseClickDrawFeature;
 import edu.kis.powp.jobs2d.features.CanvasFeature;
+import edu.kis.powp.jobs2d.shapes.EllipseShape;
+import edu.kis.powp.jobs2d.shapes.RectangleShape;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -108,7 +113,23 @@ public class TestJobs2dApp {
                 Application app = new Application("Jobs 2D");
                 DrawerFeature.setupDrawerPlugin(app);
                 CommandsFeature.setupCommandManager();
+
+                List<Canvas> canvases = new ArrayList<>();
+                canvases.add(new Canvas(new RectangleShape("a0"), "a0"));
+                canvases.add(new Canvas(new RectangleShape("a1"), "a1"));
+                canvases.add(new Canvas(new RectangleShape("a2"), "a2"));
+                canvases.add(new Canvas(new RectangleShape("a3"), "a3"));
+                canvases.add(new Canvas(new RectangleShape("a4"), "a4"));
+                canvases.add(new Canvas(new RectangleShape("b0"), "b0"));
+                canvases.add(new Canvas(new RectangleShape("b1"), "b1"));
+                canvases.add(new Canvas(new RectangleShape("b2"), "b2"));
+                canvases.add(new Canvas(new RectangleShape("b3"), "b3"));
+                canvases.add(new Canvas(new RectangleShape("b4"), "b4"));
+                canvases.add(new Canvas(new EllipseShape(200, 200), "circle"));
+
+                CanvasFeature.setCanvases(canvases);
                 CanvasFeature.setupCanvasFeature(app);
+                
                 DriverFeature.setupDriverPlugin(app);
                 setupDrivers(app);
                 setupPresetTests(app);
