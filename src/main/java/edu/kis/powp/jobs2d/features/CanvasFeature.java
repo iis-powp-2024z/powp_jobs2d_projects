@@ -11,8 +11,8 @@ import java.util.List;
 
 public class CanvasFeature {
     private static Application application;
-
     private static List<Canvas> canvases = null;
+    private static Canvas currentCanvas;
 
     /**
      * Initializes and sets up the canvas feature for the application.
@@ -70,6 +70,10 @@ public class CanvasFeature {
         return mainMenu;
     }
 
+    public static Canvas getCurrentCanvas() {
+        return currentCanvas;
+    }
+
     /**
      * Searches for an existing menu with the name "Canvas Settings" in the provided menu bar.
      *
@@ -94,7 +98,10 @@ public class CanvasFeature {
      */
     private static void addMenuItem(JMenu menu, Canvas canvas, String name) {
         JMenuItem menuItem = new JMenuItem(name);
-        menuItem.addActionListener(e -> drawCanvas(canvas));
+        menuItem.addActionListener(e -> {
+            currentCanvas = canvas;
+            drawCanvas(canvas);
+        });
         menu.add(menuItem);
     }
 
