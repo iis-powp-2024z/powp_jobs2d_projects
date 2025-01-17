@@ -8,6 +8,9 @@ import edu.kis.powp.jobs2d.command.CanvasCommandsFactory;
 
 public class RectangleCanvas extends Canvas{
     private Format format;
+
+    public static final String GROUP_A = "a";
+    public static final String GROUP_B = "b";
     
     /**
      * Creates a rectangle canvas with a predefined format.
@@ -34,16 +37,16 @@ public class RectangleCanvas extends Canvas{
      * Enum representing predefined format of rectangles.
      */
     public enum Format {
-        A4(210, 297, "a"),
-        A3(297, 420, "a"),
-        A2(420, 594, "a"),
-        A1(594, 841, "a"),
-        A0(841, 1189, "a"),
-        B4(250, 353, "b"),
-        B3(353, 500, "b"),
-        B2(500, 707, "b"),
-        B1(707, 1000, "b"),
-        B0(1000, 1414, "b");
+        A4(210, 297, GROUP_A),
+        A3(297, 420, GROUP_A),
+        A2(420, 594, GROUP_A),
+        A1(594, 841, GROUP_A),
+        A0(841, 1189, GROUP_A),
+        B4(250, 353, GROUP_B),
+        B3(353, 500, GROUP_B),
+        B2(500, 707, GROUP_B),
+        B1(707, 1000, GROUP_B),
+        B0(1000, 1414, GROUP_B);
 
         private final int width;
         private final int height;

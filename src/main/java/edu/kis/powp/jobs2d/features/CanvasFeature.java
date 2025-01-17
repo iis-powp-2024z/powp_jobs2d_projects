@@ -8,13 +8,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import edu.kis.powp.appbase.Application;
-import edu.kis.powp.jobs2d.canvas.ICanvas;
+import edu.kis.powp.jobs2d.canvas.Canvas;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 
 public class CanvasFeature {
     private static Application application;
-    private static List<ICanvas> canvases = null;
-    private static ICanvas currentCanvas;
+    private static List<Canvas> canvases = null;
+    private static Canvas currentCanvas;
 
     /**
      * Initializes and sets up the canvas feature for the application.
@@ -30,7 +30,7 @@ public class CanvasFeature {
 
         Map<String, JMenu> groupMenus = new HashMap<>();
 
-        for (ICanvas canvas : canvases) {
+        for (Canvas canvas : canvases) {
             String group = canvas.getGroup();
             groupMenus.putIfAbsent(group, new JMenu(group + " formats"));
             addMenuItem(groupMenus.get(group), canvas, canvas.getName());
@@ -41,7 +41,7 @@ public class CanvasFeature {
         }
     }
 
-    public static void setCanvases(List<ICanvas> canvases) {
+    public static void setCanvases(List<Canvas> canvases) {
         CanvasFeature.canvases = canvases;
     }
 
@@ -64,7 +64,7 @@ public class CanvasFeature {
         return mainMenu;
     }
 
-    public static ICanvas getCurrentCanvas() {
+    public static Canvas getCurrentCanvas() {
         return currentCanvas;
     }
 
@@ -90,7 +90,7 @@ public class CanvasFeature {
      * @param canvas The shape associated with the menu item.
      * @param name The name of the menu item.
      */
-    private static void addMenuItem(JMenu menu, ICanvas canvas, String name) {
+    private static void addMenuItem(JMenu menu, Canvas canvas, String name) {
         JMenuItem menuItem = new JMenuItem(name);
         menuItem.addActionListener(e -> {
             currentCanvas = canvas;
@@ -104,7 +104,7 @@ public class CanvasFeature {
      *
      * @param canvas The canvas to be drawn.
      */
-    public static void drawCanvas(ICanvas canvas) {
+    public static void drawCanvas(Canvas canvas) {
         DriverManager driver = DriverFeature.getDriverManager();
         canvas.draw(driver);
     }
