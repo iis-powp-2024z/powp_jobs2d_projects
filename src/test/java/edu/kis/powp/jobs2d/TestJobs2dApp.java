@@ -5,6 +5,7 @@ import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
+import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
@@ -15,6 +16,7 @@ import edu.kis.powp.jobs2d.features.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.Driver;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
