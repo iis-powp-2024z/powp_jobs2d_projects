@@ -2,24 +2,27 @@ package edu.kis.powp.jobs2d.canvas;
 
 import edu.kis.powp.jobs2d.command.CompoundCommand;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
-import edu.kis.powp.jobs2d.shapes.Shape;
 
 /**
- * Represents a canvas that has a Shape.
+ * Represents a canvas with a specific drawing compound command.
  * Can be drawn.
  */
-public class Canvas {
-    private final Shape shape;
+public class Canvas implements ICanvas{
+    private final CompoundCommand command;
     private final String name;
+    private final String group;
 
     /**
-     * Create a canvas with a given shape.
+     * Create a canvas with a given name and compound command.
      *
-     * @param shape The shape representing the "outline" of this canvas or its visible area.
+     * @param command The compound command representing the canvas shape.
+     * @param name The name of the canvas.
+     * @param group The group of the canvas.
      */
-    public Canvas(Shape shape, String name) {
-        this.shape = shape;
+    public Canvas(CompoundCommand command, String name, String group) {
+        this.command = command;
         this.name = name;
+        this.group = group;
     }
 
     /**
@@ -28,8 +31,7 @@ public class Canvas {
      * @param driverManager The driver manager providing access to the current driver.
      */
     public void draw(DriverManager driverManager) {
-        CompoundCommand commands = shape.getCommands("Canvas shape");
-        commands.execute(driverManager.getCurrentDriver());
+        command.execute(driverManager.getCurrentDriver());
     }
 
     public String getName() {
@@ -37,9 +39,20 @@ public class Canvas {
     }
 
     /**
-     * @return The shape composing this canvas (e.g. for bounding-box checks).
+     * @return The drawing compound command representing this canvas shape.
      */
-    public Shape getShape() {
-        return shape;
+    @Override
+    public CompoundCommand getCommand() {
+        return command;
     }
+    
+    /**
+     * @return The canvas group.
+     */
+    @Override
+    public String getGroup() {
+        return group;
+    }
+    
+    
 }

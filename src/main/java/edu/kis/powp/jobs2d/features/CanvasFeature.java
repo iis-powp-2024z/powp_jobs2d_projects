@@ -1,23 +1,24 @@
 package edu.kis.powp.jobs2d.features;
-import edu.kis.powp.appbase.Application;
-import edu.kis.powp.jobs2d.canvas.Canvas;
-import edu.kis.powp.jobs2d.drivers.DriverManager;
-import edu.kis.powp.jobs2d.shapes.EllipseShape;
-import edu.kis.powp.jobs2d.shapes.RectangleShape;
-import edu.kis.powp.jobs2d.shapes.Shape;
-
-import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import edu.kis.powp.appbase.Application;
+import edu.kis.powp.jobs2d.canvas.ICanvas;
+import edu.kis.powp.jobs2d.drivers.DriverManager;
 
 public class CanvasFeature {
     private static Application application;
-
-    private static List<Canvas> canvases = null;
+    private static List<ICanvas> canvases = null;
+    private static ICanvas currentCanvas;
 
     /**
      * Initializes and sets up the canvas feature for the application.
-     * It creates and adds the 'Canvas Settings' menu along with submenus for 'a formats' and 'b formats'.
-     * It also adds individual items to the menus for each paper size and shape.
+     * It creates and adds the 'Canvas Settings' menu along with submenus for grouped canvases.
      *
      * @param app The application instance to which the canvas feature will be added.
      */
@@ -27,27 +28,20 @@ public class CanvasFeature {
 
         JMenu mainMenu = getMainMenu();
 
-        JMenu aFormatsMenu = new JMenu("a formats");
-        JMenu bFormatsMenu = new JMenu("b formats");
+        Map<String, JMenu> groupMenus = new HashMap<>();
 
-        for (Canvas canvas : canvases) {
-            String name = canvas.getName();
-
-            if (name.toLowerCase().startsWith("a")) {
-                addMenuItem(aFormatsMenu, canvas, name);
-            } else if (name.toLowerCase().startsWith("b")) {
-                addMenuItem(bFormatsMenu, canvas, name);
-            } else {
-                addMenuItem(mainMenu, canvas, name);
-            }
+        for (ICanvas canvas : canvases) {
+            String group = canvas.getGroup();
+            groupMenus.putIfAbsent(group, new JMenu(group + " formats"));
+            addMenuItem(groupMenus.get(group), canvas, canvas.getName());
         }
 
-
-        mainMenu.add(aFormatsMenu);
-        mainMenu.add(bFormatsMenu);
+        for (JMenu groupMenu : groupMenus.values()) {
+            mainMenu.add(groupMenu);
+        }
     }
 
-    public static void setCanvases(List<Canvas> canvases) {
+    public static void setCanvases(List<ICanvas> canvases) {
         CanvasFeature.canvases = canvases;
     }
 
@@ -68,6 +62,10 @@ public class CanvasFeature {
         mainMenu = new JMenu("Canvas Settings");
         menuBar.add(mainMenu);
         return mainMenu;
+    }
+
+    public static ICanvas getCurrentCanvas() {
+        return currentCanvas;
     }
 
     /**
@@ -92,9 +90,12 @@ public class CanvasFeature {
      * @param canvas The shape associated with the menu item.
      * @param name The name of the menu item.
      */
-    private static void addMenuItem(JMenu menu, Canvas canvas, String name) {
+    private static void addMenuItem(JMenu menu, ICanvas canvas, String name) {
         JMenuItem menuItem = new JMenuItem(name);
-        menuItem.addActionListener(e -> drawCanvas(canvas));
+        menuItem.addActionListener(e -> {
+            currentCanvas = canvas;
+            drawCanvas(canvas);
+        });
         menu.add(menuItem);
     }
 
@@ -103,7 +104,7 @@ public class CanvasFeature {
      *
      * @param canvas The canvas to be drawn.
      */
-    public static void drawCanvas(Canvas canvas) {
+    public static void drawCanvas(ICanvas canvas) {
         DriverManager driver = DriverFeature.getDriverManager();
         canvas.draw(driver);
     }
