@@ -1,8 +1,19 @@
 package edu.kis.powp.jobs2d;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
+import edu.kis.powp.jobs2d.canvas.Canvas;
+import edu.kis.powp.jobs2d.canvas.EllipseCanvas;
+import edu.kis.powp.jobs2d.canvas.ICanvas;
+import edu.kis.powp.jobs2d.canvas.RectangleCanvas;
+import edu.kis.powp.jobs2d.canvas.RectangleCanvas.Format;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
@@ -11,8 +22,12 @@ import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
 import edu.kis.powp.jobs2d.events.*;
+import edu.kis.powp.jobs2d.features.CommandsFeature;
+import edu.kis.powp.jobs2d.features.DrawerFeature;
+import edu.kis.powp.jobs2d.features.DriverFeature;
+import edu.kis.powp.jobs2d.features.MouseClickDrawFeature;
+import edu.kis.powp.jobs2d.features.CanvasFeature;
 import edu.kis.powp.jobs2d.features.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
@@ -108,6 +123,16 @@ public class TestJobs2dApp {
                 DrawerFeature.setupDrawerPlugin(app);
                 CommandsFeature.setupCommandManager();
 
+                List<ICanvas> canvases = new ArrayList<>();
+                for (Format format : Format.values()) {
+                    canvases.add(new RectangleCanvas(format));
+                }
+                canvases.add(new RectangleCanvas(200, 100, "Rectangle 200x100", "custom"));
+                canvases.add(new EllipseCanvas(150, 100, "Ellipse rx:150 ry:100", "custom"));
+
+                CanvasFeature.setCanvases(canvases);
+                CanvasFeature.setupCanvasFeature(app);
+                
                 DriverFeature.setupDriverPlugin(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
                 setupTransformations();
