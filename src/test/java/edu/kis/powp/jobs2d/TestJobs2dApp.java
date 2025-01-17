@@ -123,7 +123,7 @@ public class TestJobs2dApp {
                 DrawerFeature.setupDrawerPlugin(app);
                 CommandsFeature.setupCommandManager();
 
-                List<Canvas> canvases = new ArrayList<>();
+                List<ICanvas> canvases = new ArrayList<>();
                 for (Format format : Format.values()) {
                     canvases.add(new RectangleCanvas(format));
                 }

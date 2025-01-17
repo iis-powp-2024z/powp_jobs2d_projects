@@ -25,15 +25,6 @@ public class Canvas implements ICanvas{
         this.group = group;
     }
 
-    /**
-     * Draw the canvas shape on the current driver.
-     *
-     * @param driverManager The driver manager providing access to the current driver.
-     */
-    public void draw(DriverManager driverManager) {
-        command.execute(driverManager.getCurrentDriver());
-    }
-
     public String getName() {
         return name;
     }
