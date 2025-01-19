@@ -14,5 +14,7 @@ public interface DriverCommand {
      * @param driver driver.
      */
     public void execute(Job2dDriver driver);
+
+    public DriverCommand copy();
     public void accept(CommandVisitor visitor);
 }
