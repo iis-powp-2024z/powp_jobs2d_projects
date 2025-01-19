@@ -43,6 +43,8 @@ public class MacroFeature {
         recordedCommand.clear();
     }
 
+    public static boolean isRecording() { return isRecording; }
+
     public static CompoundCommand getRecordedCommand() {
         return recordedCommand.build();
     }
