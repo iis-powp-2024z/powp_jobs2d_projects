@@ -14,7 +14,7 @@ public final class CompoundCommand implements ICompoundCommand{
 
     public CompoundCommand(List<DriverCommand> commandList, String name) {
         this.commandList = commandList.stream().map(DriverCommand::copy).collect(Collectors.toList());
-        this.name = name;
+        this.name = new String(name);
     }
 
     @Override
