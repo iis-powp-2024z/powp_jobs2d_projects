@@ -1,9 +1,7 @@
 package edu.kis.powp.jobs2d.drivers.observer;
 
-import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
-import edu.kis.powp.jobs2d.features.DriverFeature;
 import edu.kis.powp.observer.Subscriber;
 
 public class ToggleTransformationDriverSubscriber implements Subscriber {

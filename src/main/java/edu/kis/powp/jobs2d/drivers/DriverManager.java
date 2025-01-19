@@ -1,8 +1,6 @@
 package edu.kis.powp.jobs2d.drivers;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
 
 import edu.kis.powp.observer.Publisher;
 import edu.kis.powp.observer.Subscriber;

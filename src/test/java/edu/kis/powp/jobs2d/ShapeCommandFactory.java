@@ -1,13 +1,9 @@
 package edu.kis.powp.jobs2d;
 
 import edu.kis.powp.jobs2d.command.CompoundCommand;
-import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.OperateToCommand;
 import edu.kis.powp.jobs2d.command.SetPositionCommand;
 import edu.kis.powp.jobs2d.command.builder.CompoundCommandBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShapeCommandFactory {
 
