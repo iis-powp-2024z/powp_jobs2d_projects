@@ -46,11 +46,7 @@ public class MacroFeature {
         return;
     }
 
-    public static List<DriverCommand> getCommands(){
-        return null;
-    }
-
-    public static DriverCommand getRecordedCommand() {
-        return null;
+    public static CompoundCommand getRecordedCommand() {
+        return recordCommand.build();
     }
 }
