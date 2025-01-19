@@ -14,37 +14,37 @@ public class RealTimeDrawingDriver implements Job2dDriver {
     private final ExecutorService executor;
 
     public RealTimeDrawingDriver(Job2dDriver driver, int steps, int delay) {
-        this.steps = steps;
-        this.delay = delay;
+        this.executor = Executors.newSingleThreadExecutor();
+        this.driver = driver;
+
+        this.steps = Math.max(1, steps);
+        this.delay = Math.max(0, delay);
+
         this.x = 0;
         this.y = 0;
-        this.driver = driver;
-        this.executor = Executors.newSingleThreadExecutor();
     }
 
     @Override
     public void setPosition(int x, int y) {
-        executor.submit(() -> executeDrawing(x, y, true));
+        this.driver.setPosition(x, y);
     }
 
     @Override
     public void operateTo(int x, int y) {
-        executor.submit(() -> executeDrawing(x, y, false));
+        executor.submit(() -> operateToInRealTime(x, y));
     }
 
-    private void executeDrawing(int targetX, int targetY, boolean isSetPosition) {
-        int xStepSize = Math.abs(this.x - targetX) / steps;
-        int yStepSize = Math.abs(this.y - targetY) / steps;
+    private void operateToInRealTime(int targetX, int targetY) {
+        int deltaX = Math.abs(targetX - x);
+        int deltaY = Math.abs(targetY - y);
 
-        for (int step = 0; step < steps; step++) {
+        int xStepSize = deltaX / steps;
+        int yStepSize = deltaY / steps;
+
+        for (int step = 1; step <= steps; step++) {
             int newX = this.x + xStepSize * step;
             int newY = this.y + yStepSize * step;
-
-            if (isSetPosition) {
-                driver.setPosition(newX, newY);
-            } else {
-                driver.operateTo(newX, newY);
-            }
+            driver.operateTo(newX, newY);
 
             try {
                 Thread.sleep(delay);
@@ -54,14 +54,14 @@ public class RealTimeDrawingDriver implements Job2dDriver {
             }
         }
 
-        if (isSetPosition) {
-            driver.setPosition(targetX, targetY);
-        } else {
-            driver.operateTo(targetX, targetY);
-        }
-
+        driver.operateTo(targetX, targetY);
         this.x = targetX;
         this.y = targetY;
+    }
+
+    @Override
+    public String toString() {
+        return driver.toString().concat(" - Real-time");
     }
 
     public void shutdown() {
