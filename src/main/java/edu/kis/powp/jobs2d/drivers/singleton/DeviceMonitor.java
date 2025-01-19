@@ -1,4 +1,4 @@
-package edu.kis.powp.jobs2d.drivers;
+package edu.kis.powp.jobs2d.drivers.singleton;
 
 public final class DeviceMonitor {
     public int previousX, previousY;
