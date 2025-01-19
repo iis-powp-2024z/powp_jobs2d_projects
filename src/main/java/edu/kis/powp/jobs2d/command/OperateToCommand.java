@@ -20,4 +20,8 @@ public class OperateToCommand implements DriverCommand {
         driver.operateTo(posX, posY);
     }
 
+    @Override
+    public OperateToCommand copy() {
+        return new OperateToCommand(posX, posY);
+    }
 }
