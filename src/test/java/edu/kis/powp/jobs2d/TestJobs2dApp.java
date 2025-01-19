@@ -134,9 +134,6 @@ public class TestJobs2dApp {
                 setupWindows(app);
 
                 MouseClickDrawFeature.setupMousePlugin(app, DriverFeature.getDriverManager());
-
-                DeviceMonitorFeature.setupDeviceMonitorPlugin(DriverFeature.getDriverManager());
-
                 app.setVisibility(true);
             }
         });

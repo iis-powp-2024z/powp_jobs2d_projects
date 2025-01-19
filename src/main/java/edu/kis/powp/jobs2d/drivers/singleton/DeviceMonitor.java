@@ -20,6 +20,7 @@ public final class DeviceMonitor {
         }
 
         instance.calculateDistance(x, y);
+        System.out.println("Traveled distance: " + instance.getTraversedDistance());
         return instance;
     }
 

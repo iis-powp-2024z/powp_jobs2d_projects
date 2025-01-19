@@ -31,6 +31,9 @@ public class TransformationDriver implements Job2dDriver {
     public void setDriver(Job2dDriver driver) {
         this.driver = driver;
     }
+    public Job2dDriver getDriver() {
+        return this.driver;
+    }
 
     public void addTransformationMethod(TransformationMethod transformationMethod) {
         transformationsComposite.add(transformationMethod);
