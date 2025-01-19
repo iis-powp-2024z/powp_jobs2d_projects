@@ -18,6 +18,7 @@ import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
+import edu.kis.powp.jobs2d.drivers.RealTimeDrawingDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
@@ -70,7 +71,7 @@ public class TestJobs2dApp {
      */
     private static void setupDrivers(Application application) {
         DriverComposite driverComposite = new DriverComposite();    // addidtion to composite
-  
+
         Job2dDriver loggerDriver = new ImprovedLoggerDriver(false);
         DriverFeature.addDriver("Logger driver", loggerDriver);
 
@@ -83,7 +84,10 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Line Simulator", driver);
         DriverFeature.getDriverManager().setCurrentDriver(driver);
         driverComposite.addDriver(driver);  // addidtion to composite
-    
+
+        Job2dDriver realTimeDriver = new RealTimeDrawingDriver(driver, 10, 10);
+        DriverFeature.addDriver("Line Simulator (Real Time)", realTimeDriver);
+
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
         DriverFeature.addDriver("Special line Simulator", driver);
 
