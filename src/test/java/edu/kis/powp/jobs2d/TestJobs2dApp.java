@@ -29,11 +29,6 @@ import edu.kis.powp.jobs2d.features.DriverFeature;
 import edu.kis.powp.jobs2d.features.MouseClickDrawFeature;
 import edu.kis.powp.jobs2d.features.CanvasFeature;
 import edu.kis.powp.jobs2d.features.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.sql.Driver;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -90,14 +85,14 @@ public class TestJobs2dApp {
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
         DriverFeature.addDriver("Special line Simulator", driver);
 
+        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 10, 100);
+        DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
+
         // Composite usage
         driverComposite.addDriver(loggerDriver);
         driverComposite.addDriver(driver);
 
         DriverFeature.addDriver("Lines (including special) and logger", driverComposite);
-
-        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 10, 100);
-        DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
     }
 
     private static void setupTransformations() {
