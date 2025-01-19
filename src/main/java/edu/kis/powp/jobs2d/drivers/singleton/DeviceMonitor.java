@@ -1,9 +1,12 @@
 package edu.kis.powp.jobs2d.drivers.singleton;
 
+import java.util.logging.Logger;
+
 public final class DeviceMonitor {
     private static DeviceMonitor instance;
     private int previousX = 0, previousY = 0;
     private double traversedDistance = 0.0;
+    private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public double getTraversedDistance() {
         return this.traversedDistance;
@@ -20,7 +23,7 @@ public final class DeviceMonitor {
         }
 
         instance.calculateDistance(x, y);
-        System.out.println("Traveled distance: " + instance.getTraversedDistance());
+        logger.info("Traveled distance: " + instance.getTraversedDistance());
         return instance;
     }
 
