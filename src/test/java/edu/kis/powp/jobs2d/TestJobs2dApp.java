@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
-import edu.kis.powp.jobs2d.canvas.Canvas;
 import edu.kis.powp.jobs2d.canvas.EllipseCanvas;
 import edu.kis.powp.jobs2d.canvas.ICanvas;
 import edu.kis.powp.jobs2d.canvas.RectangleCanvas;
@@ -18,7 +17,7 @@ import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
-import edu.kis.powp.jobs2d.drivers.RealTimeDrawingDriver;
+import edu.kis.powp.jobs2d.drivers.decorator.RealTimeDrawingDriverDecorator;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
@@ -85,7 +84,7 @@ public class TestJobs2dApp {
         DriverFeature.getDriverManager().setCurrentDriver(driver);
         driverComposite.addDriver(driver);  // addidtion to composite
 
-        Job2dDriver realTimeDriver = new RealTimeDrawingDriver(driver, 10, 10);
+        Job2dDriver realTimeDriver = new RealTimeDrawingDriverDecorator(driver, 10, 10);
         DriverFeature.addDriver("Line Simulator (Real Time)", realTimeDriver);
 
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
@@ -96,6 +95,9 @@ public class TestJobs2dApp {
         driverComposite.addDriver(driver);
 
         DriverFeature.addDriver("Lines (including special) and logger", driverComposite);
+
+        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 10, 100);
+        DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
     }
 
     private static void setupTransformations() {
