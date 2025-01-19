@@ -76,7 +76,7 @@ public class TestJobs2dApp {
         driverComposite.addDriver(loggerDriver);
         driverComposite.addDriver(driver);
 
-        DriverFeature.addDriver("Composite", driverComposite);
+        DriverFeature.addDriver("Lines (including special) and logger", driverComposite);
     }
 
     private static void setupTransformations() {
