@@ -135,6 +135,7 @@ public class TestJobs2dApp {
                 
                 DriverFeature.setupDriverPlugin(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
+                MacroFeature.setupMacroFeature(app);
                 setupTransformations();
                 setupDrivers(app);
                 setupPresetTests(app);
