@@ -4,6 +4,7 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 
 import java.util.Iterator;
 import java.util.List;
+import edu.kis.powp.jobs2d.command.visitor.CommandVisitor;
 
 public class CompoundCommand implements ICompoundCommand{
 
@@ -28,5 +29,11 @@ public class CompoundCommand implements ICompoundCommand{
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public void accept(CommandVisitor visitor) {
+        visitor.visit(this);
+        commandList.forEach((c) -> c.accept(visitor));
     }
 }
