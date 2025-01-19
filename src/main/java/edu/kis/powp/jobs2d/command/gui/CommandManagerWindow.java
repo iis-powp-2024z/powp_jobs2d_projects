@@ -19,9 +19,12 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
     private DriverCommandManager commandManager;
 
     private JTextArea currentCommandField;
+    private String visitorFieldListString;
+    private JTextArea visitorField;
 
     private String observerListString;
     private JTextArea observerListField;
+
 
     /**
      * 
@@ -55,6 +58,15 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         c.weighty = 1;
         content.add(currentCommandField, c);
         updateCurrentCommandField();
+
+        visitorField = new JTextArea("");
+        visitorField.setEditable(false);
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.weighty = 1;
+        content.add(visitorField,c);
+        updateVisitorFields();
 
         JButton btnClearCommand = new JButton("Clear command");
         btnClearCommand.addActionListener((ActionEvent e) -> this.clearCommand());
@@ -97,6 +109,11 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
             observerListString = "No observers loaded";
 
         observerListField.setText(observerListString);
+    }
+
+    public void updateVisitorFields() {
+        visitorFieldListString = commandManager.getVisitorString();
+        visitorField.setText(visitorFieldListString);
     }
 
     @Override

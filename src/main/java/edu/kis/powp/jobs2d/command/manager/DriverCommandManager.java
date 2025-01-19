@@ -1,12 +1,12 @@
 package edu.kis.powp.jobs2d.command.manager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.ICompoundCommand;
-import edu.kis.powp.jobs2d.command.visitor.CommandCounterVisitor;
 import edu.kis.powp.jobs2d.command.visitor.CommandVisitor;
 import edu.kis.powp.observer.Publisher;
 
@@ -16,7 +16,7 @@ import edu.kis.powp.observer.Publisher;
 public class DriverCommandManager {
     private DriverCommand currentCommand = null;
     private Publisher changePublisher = new Publisher();
-
+    private List<CommandVisitor> visitor = new ArrayList<CommandVisitor>();
     /**
      * Set current command.
      * 
@@ -41,6 +41,11 @@ public class DriverCommandManager {
             @Override
             public void execute(Job2dDriver driver) {
                 driverCommands.forEach((c) -> c.execute(driver));
+            }
+
+            @Override
+            public DriverCommand copy() {
+                return null;
             }
 
             @Override
@@ -80,6 +85,25 @@ public class DriverCommandManager {
             return "No command loaded";
         } else
             return getCurrentCommand().toString();
+    }
+
+    public synchronized void addVisitor(CommandVisitor visitor) {
+        this.visitor.add(visitor);
+    }
+
+    public synchronized String getVisitorString() {
+        if (getCurrentCommand() == null || visitor == null) {
+            return "No visitor loaded";
+        } else {
+            for (CommandVisitor v : visitor) {
+                getCurrentCommand().accept(v);
+            }
+            StringBuilder visitorString = new StringBuilder();
+            for (CommandVisitor v : visitor) {
+                visitorString.append(v.toString()).append("\n");
+            }
+            return visitorString.toString();
+        }
     }
 
     public Publisher getChangePublisher() {

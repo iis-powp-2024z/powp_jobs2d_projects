@@ -9,4 +9,7 @@ public interface CommandVisitor {
     void visit(SetPositionCommand command);
     void visit(OperateToCommand command);
     void visit(ICompoundCommand command);
+
+    @Override
+    String toString();
 }

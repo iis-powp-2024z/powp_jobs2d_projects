@@ -41,6 +41,5 @@ public class CompoundCommand implements ICompoundCommand{
     @Override
     public void accept(CommandVisitor visitor) {
         visitor.visit(this);
-        commandList.forEach((c) -> c.accept(visitor));
     }
 }

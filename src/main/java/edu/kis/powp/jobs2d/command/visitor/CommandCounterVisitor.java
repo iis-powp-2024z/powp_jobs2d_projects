@@ -5,6 +5,8 @@ import edu.kis.powp.jobs2d.command.ICompoundCommand;
 import edu.kis.powp.jobs2d.command.OperateToCommand;
 import edu.kis.powp.jobs2d.command.SetPositionCommand;
 
+import java.util.Iterator;
+
 public class CommandCounterVisitor implements CommandVisitor {
     private int count = 0;
 
@@ -24,7 +26,17 @@ public class CommandCounterVisitor implements CommandVisitor {
 
     @Override
     public void visit(ICompoundCommand command) {
-        count++;
+        Iterator<DriverCommand> commandListIterator = command.iterator();
+        while(commandListIterator.hasNext())
+        {
+            DriverCommand cmd = commandListIterator.next();
+            count++;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Number of commands: " + count;
     }
 
 }

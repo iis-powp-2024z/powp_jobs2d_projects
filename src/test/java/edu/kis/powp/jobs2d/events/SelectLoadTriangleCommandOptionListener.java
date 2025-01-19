@@ -3,6 +3,7 @@ package edu.kis.powp.jobs2d.events;
 import edu.kis.powp.jobs2d.ShapeCommandFactory;
 import edu.kis.powp.jobs2d.command.CompoundCommand;
 import edu.kis.powp.jobs2d.command.manager.DriverCommandManager;
+import edu.kis.powp.jobs2d.command.visitor.CommandCounterVisitor;
 import edu.kis.powp.jobs2d.features.CommandsFeature;
 
 import java.awt.*;
@@ -15,6 +16,8 @@ public class SelectLoadTriangleCommandOptionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         CompoundCommand triangleCommand = new ShapeCommandFactory().createTriangleShape();
         DriverCommandManager manager = CommandsFeature.getDriverCommandManager();
+        CommandCounterVisitor visitor = new CommandCounterVisitor();
+        manager.addVisitor(visitor);
         manager.setCurrentCommand(triangleCommand);;
     }
 }
