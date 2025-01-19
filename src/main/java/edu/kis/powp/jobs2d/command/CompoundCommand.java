@@ -5,6 +5,7 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CompoundCommand implements ICompoundCommand{
 
@@ -29,5 +30,11 @@ public class CompoundCommand implements ICompoundCommand{
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public CompoundCommand copy() {
+        List<DriverCommand> copiedCommandList = commandList.stream().map(DriverCommand::copy).collect(Collectors.toList());
+        return new CompoundCommand(copiedCommandList, name);
     }
 }
