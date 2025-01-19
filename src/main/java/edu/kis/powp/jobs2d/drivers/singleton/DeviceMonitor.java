@@ -5,6 +5,10 @@ public final class DeviceMonitor {
     private int previousX = 0, previousY = 0;
     private double traversedDistance = 0.0;
 
+    public double getTraversedDistance() {
+        return this.traversedDistance;
+    }
+
     private DeviceMonitor(int previousX, int previousY) {
         this.previousX = previousX;
         this.previousY = previousY;
