@@ -79,13 +79,13 @@ public class TestJobs2dApp {
         DriverFeature.getDriverManager().setCurrentDriver(driver);
         driverComposite.addDriver(driver);  // addidtion to composite
 
-        Job2dDriver realTimeDriver = new RealTimeDrawingDriverDecorator(driver, 10, 10);
-        DriverFeature.addDriver("Line Simulator (Real Time)", realTimeDriver);
+        Job2dDriver fastRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 1000, 10);
+        DriverFeature.addDriver("Line Simulator (Real Time)", fastRealTimeDriver);
 
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
         DriverFeature.addDriver("Special line Simulator", driver);
 
-        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 10, 100);
+        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 100, 1);
         DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
 
         // Composite usage
@@ -144,7 +144,7 @@ public class TestJobs2dApp {
 
                 CanvasFeature.setCanvases(canvases);
                 CanvasFeature.setupCanvasFeature(app);
-                
+
                 DriverFeature.setupDriverPlugin(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
                 setupTransformations();

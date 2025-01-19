@@ -6,19 +6,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RealTimeDrawingDriverDecorator implements Job2dDriver {
-    private final int steps;
-    private final int delay;
+    private final long delayBetweenStepsInMs;
+    private final int pixelsDrawnInStep;
     private int x;
     private int y;
     private final Job2dDriver driver;
     private final ExecutorService executor;
 
-    public RealTimeDrawingDriverDecorator(Job2dDriver driver, int steps, int delay) {
+    public RealTimeDrawingDriverDecorator(Job2dDriver driver, int unitsPerSecond, int pixelsDrawnInStep) {
         this.executor = Executors.newSingleThreadExecutor();
         this.driver = driver;
 
-        this.steps = Math.max(1, steps);
-        this.delay = Math.max(0, delay);
+        this.pixelsDrawnInStep = pixelsDrawnInStep;
+        long delay = Math.round(1000.0 / unitsPerSecond) * pixelsDrawnInStep;
+        this.delayBetweenStepsInMs = Math.max(1, delay);
 
         this.x = 0;
         this.y = 0;
@@ -39,16 +40,16 @@ public class RealTimeDrawingDriverDecorator implements Job2dDriver {
             int deltaX = targetX - this.x;
             int deltaY = targetY - this.y;
 
-            int xStepSize = deltaX / steps;
-            int yStepSize = deltaY / steps;
+            double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            int steps = (int) distance / this.pixelsDrawnInStep;
 
             for (int step = 1; step <= steps; step++) {
-                int newX = this.x + xStepSize * step;
-                int newY = this.y + yStepSize * step;
-                driver.operateTo(newX, newY);
+                int intermediateX = this.x + (int) (deltaX * ((double) step / steps));
+                int intermediateY = this.y + (int) (deltaY * ((double) step / steps));
+                driver.operateTo(intermediateX, intermediateY);
 
                 try {
-                    Thread.sleep(delay);
+                    Thread.sleep(this.delayBetweenStepsInMs);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
