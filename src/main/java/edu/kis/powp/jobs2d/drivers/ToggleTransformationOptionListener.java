@@ -14,7 +14,7 @@ public class ToggleTransformationOptionListener implements ActionListener {
     private TransformationDriver transformationDriver;
     private TransformationMethod transformationMethod;
 
-    public ToggleTransformationOptionListener(DriverManager driverManager, TransformationDriver transformationDriver, TransformationMethod transformationMethod, Publisher publisher) {
+    public ToggleTransformationOptionListener(TransformationDriver transformationDriver, TransformationMethod transformationMethod, Publisher publisher) {
         this.transformationDriver = transformationDriver;
         this.publisher = publisher;
         this.transformationMethod = transformationMethod;

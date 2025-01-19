@@ -30,12 +30,10 @@ public class TransformationFeature {
      * Add driver to context, create button in driver menu.
      *
      * @param name          Button name.
-     * @param driverManager DriverManager object.
      */
-    public static void addTransformation(String name, DriverManager driverManager, TransformationMethod transformationMethod) {
-        ToggleTransformationOptionListener listener = new ToggleTransformationOptionListener(driverManager, transformationDriver, transformationMethod, publisher);
+    public static void addTransformation(String name, TransformationMethod transformationMethod) {
+        ToggleTransformationOptionListener listener = new ToggleTransformationOptionListener(transformationDriver, transformationMethod, publisher);
         app.addComponentMenuElementWithCheckBox(TransformationFeature.class, name, listener, false);
-
     }
 
     public Publisher getPublisher() {
