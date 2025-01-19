@@ -6,17 +6,15 @@ import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.builder.CompoundCommandBuilder;
 import edu.kis.powp.jobs2d.events.SelectMacroOptionListener;
 
-import java.util.List;
-
 public class MacroFeature {
     private static Application application;
-    private static CompoundCommandBuilder recordCommand;
+    private static CompoundCommandBuilder recordedCommand;
 
     private static boolean isRecording = false;
 
     public static void setupMacroFeature(Application app) {
-        recordCommand = new CompoundCommandBuilder();
-        recordCommand.setName("Record command");
+        recordedCommand = new CompoundCommandBuilder();
+        recordedCommand.setName("Record command");
         application = app;
 
         SelectMacroOptionListener clearOption = new SelectMacroOptionListener(0);
@@ -29,7 +27,7 @@ public class MacroFeature {
     }
     public static void setCommand(DriverCommand command){
         if(isRecording){
-            recordCommand.addCommand(command);
+            recordedCommand.addCommand(command);
         }
     }
 
@@ -42,11 +40,10 @@ public class MacroFeature {
     }
 
     public static void clear(){
-        System.out.println("clear");
-        return;
+        recordedCommand.clear();
     }
 
     public static CompoundCommand getRecordedCommand() {
-        return recordCommand.build();
+        return recordedCommand.build();
     }
 }
