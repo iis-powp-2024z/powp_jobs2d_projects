@@ -13,7 +13,7 @@ public class CompoundCommand implements ICompoundCommand{
     private final String name;
 
     public CompoundCommand(List<DriverCommand> commandList, String name) {
-        this.commandList = commandList;
+        this.commandList = commandList.stream().map(DriverCommand::copy).collect(Collectors.toList());
         this.name = name;
     }
 
