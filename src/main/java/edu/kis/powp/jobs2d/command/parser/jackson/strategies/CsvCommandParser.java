@@ -16,25 +16,25 @@ import java.util.Map;
 
 public class CsvCommandParser extends AbstractJacksonCommandParser {
 
-	private CsvMapper csvMapper = new CsvMapper();
-	private CsvSchema schema = CsvSchema.builder()
-			.addColumn("name")
-			.addColumn("x")
-			.addColumn("y")
-			.build()
-			.withHeader();
+    private CsvMapper csvMapper = new CsvMapper();
+    private CsvSchema schema = CsvSchema.builder()
+            .addColumn("name")
+            .addColumn("x")
+            .addColumn("y")
+            .build()
+            .withHeader();
 
-	@Override
-	public List<Map<String, Object>> getParsedRaw(String rawCommand) throws IOException {
-		CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
-		ObjectReader mapper = new CsvMapper().readerFor(Map.class).with(csvSchema);
-		MappingIterator<Map<String, Object>> iterator = mapper.readValues(rawCommand);
+    @Override
+    public List<Map<String, Object>> getParsedRaw(String rawCommand) throws IOException {
+        CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
+        ObjectReader mapper = new CsvMapper().readerFor(Map.class).with(csvSchema);
+        MappingIterator<Map<String, Object>> iterator = mapper.readValues(rawCommand);
 
-		return iterator.readAll();
-	}
+        return iterator.readAll();
+    }
 
-	@Override
-	public String getStrategyName() {
-		return "CSV";
-	}
+    @Override
+    public String getStrategyName() {
+        return "CSV";
+    }
 }

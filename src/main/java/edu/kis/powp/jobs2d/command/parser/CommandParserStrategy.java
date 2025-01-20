@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface CommandParserStrategy {
 
-	String getStrategyName();
-	List<DriverCommand> parse(String rawCommand) throws IOException;
+    String getStrategyName();
+
+    List<DriverCommand> parse(String rawCommand) throws IOException;
 }

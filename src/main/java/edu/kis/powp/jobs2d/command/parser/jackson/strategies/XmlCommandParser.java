@@ -9,20 +9,20 @@ import java.util.List;
 import java.util.Map;
 
 public class XmlCommandParser extends AbstractJacksonCommandParser {
-	private final ObjectMapper mapper = new XmlMapper();
+    private final ObjectMapper mapper = new XmlMapper();
 
-	@Override
-	public List<Map<String, Object>> getParsedRaw(String rawCommand) throws JsonProcessingException {
-		return mapper.readValue(
-				rawCommand,
-				new TypeReference<List<Map<String, Object>>>() {
-				}
-		);
-	}
+    @Override
+    public List<Map<String, Object>> getParsedRaw(String rawCommand) throws JsonProcessingException {
+        return mapper.readValue(
+                rawCommand,
+                new TypeReference<List<Map<String, Object>>>() {
+                }
+        );
+    }
 
-	@Override
-	public String getStrategyName() {
-		return "XML";
-	}
+    @Override
+    public String getStrategyName() {
+        return "XML";
+    }
 
 }

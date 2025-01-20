@@ -4,6 +4,7 @@ import java.util.Collection;
 
 public interface CommandParserFactory {
 
-	Collection<String> getAvailableParsers();
-	CommandParserStrategy getParser(String parserName);
+    Collection<String> getAvailableParsers();
+
+    CommandParserStrategy getParser(String parserName);
 }

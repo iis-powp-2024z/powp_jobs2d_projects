@@ -13,56 +13,56 @@ import java.util.Map;
 
 public abstract class AbstractJacksonCommandParser implements CommandParserStrategy {
 
-	public abstract List<Map<String, Object>> getParsedRaw(String rawCommand) throws IOException;
+    public abstract List<Map<String, Object>> getParsedRaw(String rawCommand) throws IOException;
 
-	@Override
-	public List<DriverCommand> parse(String rawCommand) throws IOException {
+    @Override
+    public List<DriverCommand> parse(String rawCommand) throws IOException {
 
-		List<Map<String, Object>> rawCommands = getParsedRaw(rawCommand);
+        List<Map<String, Object>> rawCommands = getParsedRaw(rawCommand);
 
-		List<DriverCommand> commands = new ArrayList<>();
+        List<DriverCommand> commands = new ArrayList<>();
 
-		for (Map<String, Object> cmd : rawCommands) {
-			if (!cmd.containsKey("name")) {
-				throw new IOException("No command name is present");
-			}
-			String rawCommandName = (String) cmd.get("name");
+        for (Map<String, Object> cmd : rawCommands) {
+            if (!cmd.containsKey("name")) {
+                throw new IOException("No command name is present");
+            }
+            String rawCommandName = (String) cmd.get("name");
 
-			switch (rawCommandName) {
-				case "OperateToCommand": {
-					Integer[] props =  parsePrimitiveCommandProps(cmd, rawCommandName);
-					commands.add(new OperateToCommand(props[0], props[1]));
+            switch (rawCommandName) {
+                case "OperateToCommand": {
+                    Integer[] props = parsePrimitiveCommandProps(cmd, rawCommandName);
+                    commands.add(new OperateToCommand(props[0], props[1]));
 
-					break;
-				}
-				case "SetPositionCommand": {
-					Integer[] props =  parsePrimitiveCommandProps(cmd, rawCommandName);
-					commands.add(new SetPositionCommand(props[0], props[1]));
+                    break;
+                }
+                case "SetPositionCommand": {
+                    Integer[] props = parsePrimitiveCommandProps(cmd, rawCommandName);
+                    commands.add(new SetPositionCommand(props[0], props[1]));
 
-					break;
-				}
-				default:
-					throw new IOException("Unsupported command: " + rawCommandName);
-			}
-		}
+                    break;
+                }
+                default:
+                    throw new IOException("Unsupported command: " + rawCommandName);
+            }
+        }
 
-		return commands;
-	}
+        return commands;
+    }
 
-	private Integer[] parsePrimitiveCommandProps(Map<String, Object> props, String rawCommandName) throws IOException {
-		int x;
-		int y;
-		if (props.containsKey("x")) {
-			x = Integer.parseInt(props.get("x").toString());
-		} else {
-			throw new IOException("No x property for command " + rawCommandName);
-		}
-		if (props.containsKey("y")) {
-			y = Integer.parseInt(props.get("y").toString());
-		} else {
-			throw new IOException("No y property for command " + rawCommandName);
-		}
+    private Integer[] parsePrimitiveCommandProps(Map<String, Object> props, String rawCommandName) throws IOException {
+        int x;
+        int y;
+        if (props.containsKey("x")) {
+            x = Integer.parseInt(props.get("x").toString());
+        } else {
+            throw new IOException("No x property for command " + rawCommandName);
+        }
+        if (props.containsKey("y")) {
+            y = Integer.parseInt(props.get("y").toString());
+        } else {
+            throw new IOException("No y property for command " + rawCommandName);
+        }
 
-		return new Integer[] {x, y};
-	}
+        return new Integer[]{x, y};
+    }
 }

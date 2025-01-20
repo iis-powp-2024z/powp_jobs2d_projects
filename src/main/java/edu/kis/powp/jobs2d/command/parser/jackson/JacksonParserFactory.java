@@ -10,32 +10,32 @@ import java.util.*;
 
 public class JacksonParserFactory implements CommandParserFactory {
 
-	private final Map<String, CommandParserStrategy> availableStrategies;
+    private final Map<String, CommandParserStrategy> availableStrategies;
 
-	public JacksonParserFactory() {
-		availableStrategies = new HashMap<>();
+    public JacksonParserFactory() {
+        availableStrategies = new HashMap<>();
 
-		CommandParserStrategy json = new JsonCommandParser();
-		CommandParserStrategy xml = new XmlCommandParser();
-		CommandParserStrategy csv = new CsvCommandParser();
+        CommandParserStrategy json = new JsonCommandParser();
+        CommandParserStrategy xml = new XmlCommandParser();
+        CommandParserStrategy csv = new CsvCommandParser();
 
-		availableStrategies.put(json.getStrategyName(), json);
-		availableStrategies.put(xml.getStrategyName(), xml);
-		availableStrategies.put(csv.getStrategyName(), csv);
-	}
+        availableStrategies.put(json.getStrategyName(), json);
+        availableStrategies.put(xml.getStrategyName(), xml);
+        availableStrategies.put(csv.getStrategyName(), csv);
+    }
 
 
-	@Override
-	public Collection<String> getAvailableParsers() {
-		return availableStrategies.keySet();
-	}
+    @Override
+    public Collection<String> getAvailableParsers() {
+        return availableStrategies.keySet();
+    }
 
-	@Override
-	public CommandParserStrategy getParser(String parserName) {
-		if (!getAvailableParsers().contains(parserName)) {
-			return null;
-		}
+    @Override
+    public CommandParserStrategy getParser(String parserName) {
+        if (!getAvailableParsers().contains(parserName)) {
+            return null;
+        }
 
-		return availableStrategies.getOrDefault(parserName, null);
-	}
+        return availableStrategies.getOrDefault(parserName, null);
+    }
 }

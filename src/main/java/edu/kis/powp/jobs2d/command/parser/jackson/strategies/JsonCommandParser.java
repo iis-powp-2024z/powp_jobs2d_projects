@@ -15,19 +15,19 @@ import java.util.List;
 import java.util.Map;
 
 public class JsonCommandParser extends AbstractJacksonCommandParser {
-	private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
-	@Override
-	public List<Map<String, Object>> getParsedRaw(String rawCommand) throws JsonProcessingException {
-		return mapper.readValue(
-				rawCommand,
-				new TypeReference<List<Map<String, Object>>>() {
-				}
-		);
-	}
+    @Override
+    public List<Map<String, Object>> getParsedRaw(String rawCommand) throws JsonProcessingException {
+        return mapper.readValue(
+                rawCommand,
+                new TypeReference<List<Map<String, Object>>>() {
+                }
+        );
+    }
 
-	@Override
-	public String getStrategyName() {
-		return "JSON";
-	}
+    @Override
+    public String getStrategyName() {
+        return "JSON";
+    }
 }
