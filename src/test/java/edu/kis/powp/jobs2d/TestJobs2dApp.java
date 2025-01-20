@@ -12,6 +12,7 @@ import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver
 import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
+import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
 import edu.kis.powp.jobs2d.drivers.decorator.RealTimeDrawingDriverDecorator;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
@@ -70,26 +71,31 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Extended logger driver", extendedLoggerDriver);
 
         DrawPanelController drawerController = DrawerFeature.getDrawerController();
-        Job2dDriver driver = new LineDriverAdapter(drawerController, LineFactory.getBasicLine(), "basic");
+        Job2dDriver basicLineDriver = new LineDriverAdapter(drawerController, LineFactory.getBasicLine(), "basic");
 
-        DriverFeature.addDriver("Line Simulator", driver);
-        DriverFeature.getDriverManager().setCurrentDriver(driver);
-        driverComposite.addDriver(driver);  // addidtion to composite
+        DriverFeature.addDriver("Line Simulator", basicLineDriver);
+        DriverFeature.getDriverManager().setCurrentDriver(basicLineDriver);
+        driverComposite.addDriver(basicLineDriver);  // addidtion to composite
 
-        Job2dDriver fastRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 1000, 10);
+        Job2dDriver fastRealTimeDriver = new RealTimeDrawingDriverDecorator(basicLineDriver, 1000, 10);
         DriverFeature.addDriver("Line Simulator (Real Time)", fastRealTimeDriver);
 
-        driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
-        DriverFeature.addDriver("Special line Simulator", driver);
+        Job2dDriver specialLineDriver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
+        DriverFeature.addDriver("Special line Simulator", specialLineDriver);
 
-        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(driver, 100, 1);
+        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(specialLineDriver, 100, 1);
         DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
 
         // Composite usage
         driverComposite.addDriver(loggerDriver);
-        driverComposite.addDriver(driver);
-
+        driverComposite.addDriver(basicLineDriver);
         DriverFeature.addDriver("Lines (including special) and logger", driverComposite);
+
+        Job2dDriver deviceMonitorDriver = new DeviceMonitorDriver(basicLineDriver);
+        DriverComposite deviceDriverMonitorComposite = new DriverComposite();
+        deviceDriverMonitorComposite.addDriver(deviceMonitorDriver);
+        deviceDriverMonitorComposite.addDriver(basicLineDriver);
+        DriverFeature.addDriver("Device monitor", deviceDriverMonitorComposite);
     }
 
     private static void setupTransformations() {
