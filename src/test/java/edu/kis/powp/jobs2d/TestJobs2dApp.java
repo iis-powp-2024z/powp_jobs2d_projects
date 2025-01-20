@@ -90,12 +90,6 @@ public class TestJobs2dApp {
         driverComposite.addDriver(loggerDriver);
         driverComposite.addDriver(basicLineDriver);
         DriverFeature.addDriver("Lines (including special) and logger", driverComposite);
-
-        Job2dDriver deviceMonitorDriver = new DeviceMonitorDriver(basicLineDriver);
-        DriverComposite deviceDriverMonitorComposite = new DriverComposite();
-        deviceDriverMonitorComposite.addDriver(deviceMonitorDriver);
-        deviceDriverMonitorComposite.addDriver(basicLineDriver);
-        DriverFeature.addDriver("Device monitor", deviceDriverMonitorComposite);
     }
 
     private static void setupTransformations() {

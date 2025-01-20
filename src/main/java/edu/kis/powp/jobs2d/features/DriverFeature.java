@@ -2,8 +2,10 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.SelectDriverMenuOptionListener;
+import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
 import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverInfoSubscriber;
 
 public class DriverFeature {
@@ -35,7 +37,8 @@ public class DriverFeature {
      * @param driver Job2dDriver object.
      */
     public static void addDriver(String name, Job2dDriver driver) {
-        SelectDriverMenuOptionListener listener = new SelectDriverMenuOptionListener(driver, driverManager);
+        DeviceMonitorDriver deviceMonitorDriver = new DeviceMonitorDriver(driver);
+        SelectDriverMenuOptionListener listener = new SelectDriverMenuOptionListener(deviceMonitorDriver, driverManager);
         app.addComponentMenuElement(DriverFeature.class, name, listener);
     }
 }
