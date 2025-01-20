@@ -1,5 +1,11 @@
 package edu.kis.powp.jobs2d;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
@@ -17,14 +23,12 @@ import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
 import edu.kis.powp.jobs2d.events.*;
+import edu.kis.powp.jobs2d.features.CommandsFeature;
+import edu.kis.powp.jobs2d.features.DrawerFeature;
+import edu.kis.powp.jobs2d.features.DriverFeature;
+import edu.kis.powp.jobs2d.features.MouseClickDrawFeature;
+import edu.kis.powp.jobs2d.features.CanvasFeature;
 import edu.kis.powp.jobs2d.features.*;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -61,7 +65,7 @@ public class TestJobs2dApp {
      */
     private static void setupDrivers(Application application) {
         DriverComposite driverComposite = new DriverComposite();    // addidtion to composite
-
+  
         Job2dDriver loggerDriver = new ImprovedLoggerDriver(false);
         DriverFeature.addDriver("Logger driver", loggerDriver);
 
@@ -74,7 +78,7 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Line Simulator", driver);
         DriverFeature.getDriverManager().setCurrentDriver(driver);
         driverComposite.addDriver(driver);  // addidtion to composite
-
+    
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
         DriverFeature.addDriver("Special line Simulator", driver);
 
@@ -134,7 +138,7 @@ public class TestJobs2dApp {
 
                 CanvasFeature.setCanvases(canvases);
                 CanvasFeature.setupCanvasFeature(app);
-
+                
                 DriverFeature.setupDriverPlugin(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
                 setupTransformations();
