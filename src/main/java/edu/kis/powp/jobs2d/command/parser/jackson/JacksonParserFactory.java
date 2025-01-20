@@ -6,7 +6,9 @@ import edu.kis.powp.jobs2d.command.parser.jackson.strategies.CsvCommandParser;
 import edu.kis.powp.jobs2d.command.parser.jackson.strategies.JsonCommandParser;
 import edu.kis.powp.jobs2d.command.parser.jackson.strategies.XmlCommandParser;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JacksonParserFactory implements CommandParserFactory {
 

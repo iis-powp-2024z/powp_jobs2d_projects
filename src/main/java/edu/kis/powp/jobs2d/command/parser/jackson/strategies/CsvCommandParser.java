@@ -1,14 +1,9 @@
 package edu.kis.powp.jobs2d.command.parser.jackson.strategies;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import edu.kis.powp.jobs2d.command.DriverCommand;
-import edu.kis.powp.jobs2d.command.parser.CommandParserStrategy;
-import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
 
 import java.io.IOException;
 import java.util.List;

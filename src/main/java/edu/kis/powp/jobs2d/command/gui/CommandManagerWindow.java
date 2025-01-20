@@ -99,9 +99,11 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         btnSetCommand.addActionListener((ActionEvent e) -> {
             String chosenCommand = (String) selectType.getSelectedItem();
             String newCommandName = newCommandNameField.getText();
+            String rawCommand = userInputField.getText();
             try {
-                List<DriverCommand> parsedCommand = parserFactory.getParser(chosenCommand).parse(userInputField.getText());
-                commandManager.setCurrentCommand(parsedCommand, newCommandName);
+                DriverCommand parsedCommand = parserFactory.getParser(chosenCommand)
+                        .parse(rawCommand, newCommandName);
+                commandManager.setCurrentCommand(parsedCommand);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex);
             }

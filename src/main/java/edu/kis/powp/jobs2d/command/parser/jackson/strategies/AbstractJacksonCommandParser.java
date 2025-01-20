@@ -16,7 +16,7 @@ public abstract class AbstractJacksonCommandParser implements CommandParserStrat
     public abstract List<Map<String, Object>> getParsedRaw(String rawCommand) throws IOException;
 
     @Override
-    public List<DriverCommand> parse(String rawCommand) throws IOException {
+    public DriverCommand parse(String rawCommand, String newCommandName) throws IOException {
 
         List<Map<String, Object>> rawCommands = getParsedRaw(rawCommand);
 
@@ -46,7 +46,7 @@ public abstract class AbstractJacksonCommandParser implements CommandParserStrat
             }
         }
 
-        return commands;
+        return new CompoundCommand(commands, newCommandName);
     }
 
     private Integer[] parsePrimitiveCommandProps(Map<String, Object> props, String rawCommandName) throws IOException {
