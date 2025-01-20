@@ -22,4 +22,11 @@ public class DeviceMonitorDriver implements Job2dDriver {
         driver.operateTo(x, y);
         DeviceMonitor.getInstance(x, y);
     }
+
+    public Job2dDriver getDriver(){
+        return this.driver;
+    }
+    public void setDriver(Job2dDriver driver){
+        this.driver = driver;
+    }
 }

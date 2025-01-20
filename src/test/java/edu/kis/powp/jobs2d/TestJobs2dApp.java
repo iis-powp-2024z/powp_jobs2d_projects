@@ -143,9 +143,9 @@ public class TestJobs2dApp {
                 CanvasFeature.setupCanvasFeature(app);
 
                 DriverFeature.setupDriverPlugin(app);
+                setupDrivers(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
                 setupTransformations();
-                setupDrivers(app);
                 setupPresetTests(app);
                 setupCommandTests(app);
                 setupLogger(app);

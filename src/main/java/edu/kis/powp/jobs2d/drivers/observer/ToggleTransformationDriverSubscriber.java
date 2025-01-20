@@ -1,5 +1,6 @@
 package edu.kis.powp.jobs2d.drivers.observer;
 
+import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
@@ -16,7 +17,10 @@ public class ToggleTransformationDriverSubscriber implements Subscriber {
 
     @Override
     public void update() {
-        transformationDriver.setDriver(driverManager.getCurrentDriver());
-        driverManager.setCurrentDriver(transformationDriver);
+        DeviceMonitorDriver deviceMonitorDriver = (DeviceMonitorDriver) driverManager.getCurrentDriver();
+        Job2dDriver innerDriver = ((DeviceMonitorDriver) driverManager.getCurrentDriver()).getDriver();
+        transformationDriver.setDriver(innerDriver);
+        deviceMonitorDriver.setDriver(transformationDriver);
+        driverManager.setCurrentDriver(deviceMonitorDriver);
     }
 }
