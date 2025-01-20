@@ -14,13 +14,13 @@ public class DeviceMonitorDriver implements Job2dDriver {
     @Override
     public void setPosition(int x, int y) {
         driver.setPosition(x, y);
-        DeviceMonitor.getInstance(x, y);
+        DeviceMonitor.getInstance().calculateSetPositionDistance(x,y);
     }
 
     @Override
     public void operateTo(int x, int y) {
         driver.operateTo(x, y);
-        DeviceMonitor.getInstance(x, y);
+        DeviceMonitor.getInstance().calculateOperateToDistance(x, y);
     }
 
     public Job2dDriver getDriver(){
