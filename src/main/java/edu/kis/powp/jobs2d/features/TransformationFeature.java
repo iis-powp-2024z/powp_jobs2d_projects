@@ -5,7 +5,7 @@ import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.ToggleTransformationOptionListener;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
-import edu.kis.powp.jobs2d.drivers.observer.ToggleTransformationDriverSubscriber;
+import edu.kis.powp.jobs2d.drivers.observer.ToggleDriverSubscriber;
 import edu.kis.powp.observer.Publisher;
 
 public class TransformationFeature {
@@ -22,7 +22,7 @@ public class TransformationFeature {
         app = application;
         app.addComponentMenu(TransformationFeature.class, "Transformations");
 
-        ToggleTransformationDriverSubscriber subscriber = new ToggleTransformationDriverSubscriber(driverManager, transformationDriver);
+        ToggleDriverSubscriber subscriber = new ToggleDriverSubscriber(driverManager, transformationDriver);
         driverManager.addSubscriber(subscriber);
     }
 
