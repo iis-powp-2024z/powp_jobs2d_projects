@@ -1,11 +1,6 @@
 package edu.kis.powp.jobs2d.drivers;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
-
-import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
-
 import edu.kis.powp.observer.Publisher;
 import edu.kis.powp.observer.Subscriber;
 
@@ -15,8 +10,8 @@ import edu.kis.powp.observer.Subscriber;
  */
 public class DriverManager {
 
-    private Job2dDriver currentDriver = new ImprovedLoggerDriver(false);
     private final Publisher publisher = new Publisher();
+    private Job2dDriver currentDriver = new ImprovedLoggerDriver(false);
 
     /**
      * @return Current driver.
