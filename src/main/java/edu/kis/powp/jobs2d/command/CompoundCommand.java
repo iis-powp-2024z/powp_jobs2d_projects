@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import edu.kis.powp.jobs2d.command.visitor.CommandVisitor;
 
-public class CompoundCommand implements ICompoundCommand{
+public final class CompoundCommand implements ICompoundCommand{
 
     private final List<DriverCommand> commandList;
     private final String name;
 
     public CompoundCommand(List<DriverCommand> commandList, String name) {
-        this.commandList = commandList;
-        this.name = name;
+        this.commandList = commandList.stream().map(DriverCommand::copy).collect(Collectors.toList());
+        this.name = new String(name);
     }
 
     @Override
@@ -34,8 +34,7 @@ public class CompoundCommand implements ICompoundCommand{
 
     @Override
     public CompoundCommand copy() {
-        List<DriverCommand> copiedCommandList = commandList.stream().map(DriverCommand::copy).collect(Collectors.toList());
-        return new CompoundCommand(copiedCommandList, name);
+        return new CompoundCommand(commandList, name);
     }
 
     @Override
