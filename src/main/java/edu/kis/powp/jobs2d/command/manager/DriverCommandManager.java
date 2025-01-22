@@ -16,7 +16,7 @@ import edu.kis.powp.observer.Publisher;
 public class DriverCommandManager {
     private DriverCommand currentCommand = null;
     private Publisher changePublisher = new Publisher();
-    private List<CommandVisitor> visitor = new ArrayList<CommandVisitor>();
+    private List<CommandVisitor> visitorList= new ArrayList<CommandVisitor>();
     /**
      * Set current command.
      * 
@@ -88,20 +88,21 @@ public class DriverCommandManager {
     }
 
     public synchronized void addVisitor(CommandVisitor visitor) {
-        this.visitor.add(visitor);
+        this.visitorList.add(visitor);
     }
 
     public synchronized String getVisitorString() {
-        if (getCurrentCommand() == null || visitor == null) {
+        if (getCurrentCommand() == null || visitorList == null) {
             return "No visitor loaded";
         } else {
-            for (CommandVisitor v : visitor) {
+            for (CommandVisitor v : visitorList) {
                 getCurrentCommand().accept(v);
             }
             StringBuilder visitorString = new StringBuilder();
-            for (CommandVisitor v : visitor) {
+            for (CommandVisitor v : visitorList) {
                 visitorString.append(v.toString()).append("\n");
             }
+            visitorList.clear();
             return visitorString.toString();
         }
     }

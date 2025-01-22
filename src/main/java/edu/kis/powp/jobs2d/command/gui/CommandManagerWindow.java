@@ -63,6 +63,15 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         c.weighty = 0;
         content.add(currentCommandField, c);
 
+        visitorField = new JTextArea("");
+        visitorField.setEditable(false);
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.weighty = 1;
+        content.add(visitorField,c);
+        updateVisitorFields();
+
         JPanel drawPanel = new JPanel();
         drawPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         drawPanel.setMinimumSize(new Dimension(200, 200));
@@ -136,15 +145,6 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         c.gridx = 0;
         c.weighty = 0;
         content.add(panel, c);
-
-        visitorField = new JTextArea("");
-        visitorField.setEditable(false);
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1;
-        c.gridx = 0;
-        c.weighty = 1;
-        content.add(visitorField,c);
-        updateVisitorFields();
 
         JButton btnClearCommand = new JButton("Clear command");
         btnClearCommand.addActionListener((ActionEvent e) -> this.clearCommand());
