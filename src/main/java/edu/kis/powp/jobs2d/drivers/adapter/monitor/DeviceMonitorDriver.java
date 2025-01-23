@@ -8,6 +8,8 @@ public class DeviceMonitorDriver implements DriverDecorator {
 
     private Job2dDriver driver;
 
+    public DeviceMonitorDriver() { }
+
     public DeviceMonitorDriver(Job2dDriver driver) {
         this.driver = driver;
     }

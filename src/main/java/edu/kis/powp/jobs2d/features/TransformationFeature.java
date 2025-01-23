@@ -22,7 +22,8 @@ public class TransformationFeature {
         app = application;
         app.addComponentMenu(TransformationFeature.class, "Transformations");
 
-        ToggleDriverSubscriber subscriber = new ToggleDriverSubscriber(driverManager, transformationDriver);
+        ToggleDriverSubscriber subscriber = new ToggleDriverSubscriber(driverManager);
+        subscriber.addDriver(transformationDriver);
         driverManager.addSubscriber(subscriber);
     }
 
