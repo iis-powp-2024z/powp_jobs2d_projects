@@ -12,12 +12,11 @@ import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver
 import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
-import edu.kis.powp.jobs2d.drivers.decorator.RealTimeDrawingDriverDecorator;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
+import edu.kis.powp.jobs2d.drivers.decorator.RealTimeDrawingDriverDecorator;
 import edu.kis.powp.jobs2d.events.*;
 import edu.kis.powp.jobs2d.features.*;
 

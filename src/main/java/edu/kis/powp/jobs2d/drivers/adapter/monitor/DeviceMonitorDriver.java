@@ -1,9 +1,10 @@
 package edu.kis.powp.jobs2d.drivers.adapter.monitor;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 import edu.kis.powp.jobs2d.drivers.singleton.DeviceMonitor;
 
-public class DeviceMonitorDriver implements Job2dDriver {
+public class DeviceMonitorDriver implements DriverDecorator {
 
     private Job2dDriver driver;
 
