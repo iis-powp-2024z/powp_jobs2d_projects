@@ -2,16 +2,16 @@ package edu.kis.powp.jobs2d.drivers.observer;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
-import edu.kis.powp.jobs2d.drivers.adapter.ToggleDriver;
+import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
 import edu.kis.powp.observer.Subscriber;
 
 public class ToggleDriverSubscriber implements Subscriber {
     private final DriverManager driverManager;
-    private final ToggleDriver toggleDriver;
+    private final DriverDecorator driverDecorator;
 
-    public ToggleDriverSubscriber(DriverManager driverManager, ToggleDriver toggleDriver) {
-        this.toggleDriver = toggleDriver;
+    public ToggleDriverSubscriber(DriverManager driverManager, DriverDecorator driverDecorator) {
+        this.driverDecorator = driverDecorator;
         this.driverManager = driverManager;
     }
 
@@ -19,11 +19,11 @@ public class ToggleDriverSubscriber implements Subscriber {
     public void update() {
         DeviceMonitorDriver deviceMonitorDriver = (DeviceMonitorDriver) driverManager.getCurrentDriver();
         Job2dDriver innerDriver = ((DeviceMonitorDriver) driverManager.getCurrentDriver()).getDriver();
-        if (innerDriver == toggleDriver) {
-            innerDriver = toggleDriver.getDriver();
+        if (innerDriver == driverDecorator) {
+            innerDriver = driverDecorator.getDriver();
         }
-        toggleDriver.setDriver(innerDriver);
-        deviceMonitorDriver.setDriver(toggleDriver);
+        driverDecorator.setDriver(innerDriver);
+        deviceMonitorDriver.setDriver(driverDecorator);
         driverManager.setCurrentDriver(deviceMonitorDriver);
     }
 }

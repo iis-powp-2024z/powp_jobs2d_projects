@@ -1,9 +1,9 @@
 package edu.kis.powp.jobs2d.drivers.adapter.transformation;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.ToggleDriver;
+import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 
-public class TransformationDriver implements ToggleDriver {
+public class TransformationDriver implements DriverDecorator {
     private final TransformationsComposite transformationsComposite = new TransformationsComposite();
     private Job2dDriver driver;
     private int x = 0, y = 0;
