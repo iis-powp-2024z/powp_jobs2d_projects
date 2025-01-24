@@ -13,7 +13,7 @@ public class DriverFeature {
 
     private static DriverManager driverManager = new DriverManager();
     private static Application app;
-    private static DeviceMonitorDriver deviceMonitorDriver = new DeviceMonitorDriver();
+    private static UsageMonitorFeature usageMonitorFeature = new UsageMonitorFeature();
 
     public static DriverManager getDriverManager() {
         return driverManager;
@@ -28,7 +28,7 @@ public class DriverFeature {
         app = application;
         app.addComponentMenu(DriverFeature.class, "Drivers");
 
-        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(deviceMonitorDriver);
+        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(usageMonitorFeature.getDeviceMonitorDriver());
         ApplyDriverDecoratorsSubscriber.getInstance().setDriverManager(driverManager);
         driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
 
