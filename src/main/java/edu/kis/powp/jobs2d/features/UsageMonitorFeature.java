@@ -1,12 +1,16 @@
 package edu.kis.powp.jobs2d.features;
 
+import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
+import edu.kis.powp.jobs2d.drivers.observer.ApplyDriverDecoratorsSubscriber;
 
 public class UsageMonitorFeature {
 
-    private static DeviceMonitorDriver deviceMonitorDriver = new DeviceMonitorDriver();
+    private static final DeviceMonitorDriver deviceMonitorDriver = new DeviceMonitorDriver();
 
-    public static DeviceMonitorDriver getDeviceMonitorDriver() {
-        return deviceMonitorDriver;
+    public static void setupDeviceMonitorPlugin(DriverManager driverManager) {
+        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(deviceMonitorDriver);
+        ApplyDriverDecoratorsSubscriber.getInstance().setDriverManager(driverManager);
+        driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
     }
 }

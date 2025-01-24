@@ -2,18 +2,15 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.Job2dDriver;
-import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.SelectDriverMenuOptionListener;
-import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
-import edu.kis.powp.jobs2d.drivers.observer.ApplyDriverDecoratorsSubscriber;
 import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverInfoSubscriber;
 
 public class DriverFeature {
 
-    private static DriverManager driverManager = new DriverManager();
+    private static final DriverManager driverManager = new DriverManager();
     private static Application app;
-    private static UsageMonitorFeature usageMonitorFeature = new UsageMonitorFeature();
+    private static final UsageMonitorFeature usageMonitorFeature = new UsageMonitorFeature();
 
     public static DriverManager getDriverManager() {
         return driverManager;
@@ -21,16 +18,12 @@ public class DriverFeature {
 
     /**
      * Setup jobs2d drivers Plugin and add to application.
-     * 
+     *
      * @param application Application context.
      */
     public static void setupDriverPlugin(Application application) {
         app = application;
         app.addComponentMenu(DriverFeature.class, "Drivers");
-
-        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(usageMonitorFeature.getDeviceMonitorDriver());
-        ApplyDriverDecoratorsSubscriber.getInstance().setDriverManager(driverManager);
-        driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
 
         UpdateDriverInfoSubscriber updateDriverInfoSubscriber = new UpdateDriverInfoSubscriber(app);
         driverManager.addSubscriber(updateDriverInfoSubscriber);
@@ -38,7 +31,7 @@ public class DriverFeature {
 
     /**
      * Add driver to context, create button in driver menu.
-     * 
+     *
      * @param name   Button name.
      * @param driver Job2dDriver object.
      */
