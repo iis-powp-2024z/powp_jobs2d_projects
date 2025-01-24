@@ -1,5 +1,7 @@
 package edu.kis.powp.jobs2d.command;
 
+import edu.kis.powp.jobs2d.command.visitor.CommandVisitor;
+
 import java.util.Iterator;
 
 /**

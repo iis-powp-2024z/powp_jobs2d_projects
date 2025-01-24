@@ -21,6 +21,8 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
     private DriverCommandManager commandManager;
 
     private JTextArea currentCommandField;
+    private String visitorFieldListString;
+    private JTextArea visitorField;
     private DrawPanelController drawPanelController = new DrawPanelController();
     private JTextArea userInputField;
     private JTextField newCommandNameField;
@@ -28,6 +30,10 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
     private String observerListString;
     private JTextArea observerListField;
 
+
+    /**
+     * 
+     */
     private static final long serialVersionUID = 9204679248304669948L;
 
     public CommandManagerWindow(DriverCommandManager commandManager, CommandParserFactory parserFactory) {
@@ -56,6 +62,15 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         c.gridx = 0;
         c.weighty = 0;
         content.add(currentCommandField, c);
+
+        visitorField = new JTextArea("");
+        visitorField.setEditable(false);
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.weighty = 1;
+        content.add(visitorField,c);
+        updateVisitorFields();
 
         JPanel drawPanel = new JPanel();
         drawPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -182,6 +197,11 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         if (commandChangeSubscribers.isEmpty()) observerListString = "No observers loaded";
 
         observerListField.setText(observerListString);
+    }
+
+    public void updateVisitorFields() {
+        visitorFieldListString = commandManager.getVisitorString();
+        visitorField.setText(visitorFieldListString);
     }
 
     @Override
