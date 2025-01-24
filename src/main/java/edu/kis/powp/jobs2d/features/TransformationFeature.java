@@ -2,10 +2,10 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
-import edu.kis.powp.jobs2d.drivers.ToggleTransformationOptionListener;
+import edu.kis.powp.jobs2d.drivers.adapter.transformation.ToggleTransformationOptionListener;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
-import edu.kis.powp.jobs2d.drivers.observer.ToggleDriverSubscriber;
+import edu.kis.powp.jobs2d.drivers.observer.ApplyDriverDecoratorsSubscriber;
 import edu.kis.powp.observer.Publisher;
 
 public class TransformationFeature {
@@ -22,9 +22,8 @@ public class TransformationFeature {
         app = application;
         app.addComponentMenu(TransformationFeature.class, "Transformations");
 
-        ToggleDriverSubscriber subscriber = new ToggleDriverSubscriber(driverManager);
-        subscriber.addDriver(transformationDriver);
-        driverManager.addSubscriber(subscriber);
+        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(transformationDriver);
+        driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
     }
 
     /**
@@ -35,9 +34,5 @@ public class TransformationFeature {
     public static void addTransformation(String name, TransformationMethod transformationMethod) {
         ToggleTransformationOptionListener listener = new ToggleTransformationOptionListener(transformationDriver, transformationMethod, publisher);
         app.addComponentMenuElementWithCheckBox(TransformationFeature.class, name, listener, false);
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
     }
 }

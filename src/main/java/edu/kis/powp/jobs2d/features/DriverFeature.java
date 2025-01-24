@@ -6,12 +6,14 @@ import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.SelectDriverMenuOptionListener;
 import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
+import edu.kis.powp.jobs2d.drivers.observer.ApplyDriverDecoratorsSubscriber;
 import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverInfoSubscriber;
 
 public class DriverFeature {
 
     private static DriverManager driverManager = new DriverManager();
     private static Application app;
+    private static DeviceMonitorDriver deviceMonitorDriver = new DeviceMonitorDriver();
 
     public static DriverManager getDriverManager() {
         return driverManager;
@@ -26,6 +28,10 @@ public class DriverFeature {
         app = application;
         app.addComponentMenu(DriverFeature.class, "Drivers");
 
+        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(deviceMonitorDriver);
+        ApplyDriverDecoratorsSubscriber.getInstance().setDriverManager(driverManager);
+        driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
+
         UpdateDriverInfoSubscriber updateDriverInfoSubscriber = new UpdateDriverInfoSubscriber(app);
         driverManager.addSubscriber(updateDriverInfoSubscriber);
     }
@@ -37,8 +43,7 @@ public class DriverFeature {
      * @param driver Job2dDriver object.
      */
     public static void addDriver(String name, Job2dDriver driver) {
-        DeviceMonitorDriver deviceMonitorDriver = new DeviceMonitorDriver(driver);
-        SelectDriverMenuOptionListener listener = new SelectDriverMenuOptionListener(deviceMonitorDriver, driverManager);
+        SelectDriverMenuOptionListener listener = new SelectDriverMenuOptionListener(driver, driverManager);
         app.addComponentMenuElement(DriverFeature.class, name, listener);
     }
 }
