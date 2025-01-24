@@ -3,15 +3,14 @@ package edu.kis.powp.jobs2d.drivers.observer;
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
-import edu.kis.powp.jobs2d.drivers.adapter.monitor.DeviceMonitorDriver;
 import edu.kis.powp.observer.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class ApplyDriverDecoratorsSubscriber implements Subscriber {
-    private static DriverManager driverManager;
     private static final List<DriverDecorator> driverDecorators = new ArrayList<>();
+    private static DriverManager driverManager;
     private static ApplyDriverDecoratorsSubscriber instance;
 
     public static ApplyDriverDecoratorsSubscriber getInstance() {
@@ -29,8 +28,6 @@ public final class ApplyDriverDecoratorsSubscriber implements Subscriber {
             return;
         }
 
-        // At this point the `decoratedDriver` is `DeviceMonitorDriver` which have e.g. `TransformationDriver`
-        // and the `TransformationDriver` has `BasicLineDriver` etc.
         driverManager.setCurrentDriver(getDecoratedDriver());
     }
 
