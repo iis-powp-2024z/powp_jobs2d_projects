@@ -2,10 +2,10 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
-import edu.kis.powp.jobs2d.drivers.ToggleTransformationOptionListener;
+import edu.kis.powp.jobs2d.drivers.adapter.transformation.ToggleTransformationOptionListener;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
-import edu.kis.powp.jobs2d.drivers.observer.ToggleTransformationDriverSubscriber;
+import edu.kis.powp.jobs2d.drivers.observer.ApplyDriverDecoratorsSubscriber;
 import edu.kis.powp.observer.Publisher;
 
 public class TransformationFeature {
@@ -22,23 +22,17 @@ public class TransformationFeature {
         app = application;
         app.addComponentMenu(TransformationFeature.class, "Transformations");
 
-        ToggleTransformationDriverSubscriber subscriber = new ToggleTransformationDriverSubscriber(driverManager, transformationDriver);
-        driverManager.addSubscriber(subscriber);
+        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(transformationDriver);
+        driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
     }
 
     /**
      * Add driver to context, create button in driver menu.
      *
      * @param name          Button name.
-     * @param driverManager DriverManager object.
      */
-    public static void addTransformation(String name, DriverManager driverManager, TransformationMethod transformationMethod) {
-        ToggleTransformationOptionListener listener = new ToggleTransformationOptionListener(driverManager, transformationDriver, transformationMethod, publisher);
+    public static void addTransformation(String name, TransformationMethod transformationMethod) {
+        ToggleTransformationOptionListener listener = new ToggleTransformationOptionListener(transformationDriver, transformationMethod, publisher);
         app.addComponentMenuElementWithCheckBox(TransformationFeature.class, name, listener, false);
-
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
     }
 }
