@@ -38,7 +38,7 @@ public class ImprovedLoggerDriver implements LoggerDriver {
     }
 
     @Override
-    public void visit(IVisitor visitor) {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 
