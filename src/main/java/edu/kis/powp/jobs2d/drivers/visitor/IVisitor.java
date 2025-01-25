@@ -4,7 +4,7 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 
 public interface IVisitor {
-    void visitComposite(DriverComposite driver);
+    void visit(DriverComposite driver);
     //void visitObserver(driver);
-    void visitSingleDriver(Job2dDriver driver);
+    void visit(Job2dDriver driver);
 }
