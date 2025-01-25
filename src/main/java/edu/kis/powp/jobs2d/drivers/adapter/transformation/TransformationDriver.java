@@ -1,14 +1,12 @@
 package edu.kis.powp.jobs2d.drivers.adapter.transformation;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 
-public class TransformationDriver implements Job2dDriver {
+public class TransformationDriver implements DriverDecorator {
     private final TransformationsComposite transformationsComposite = new TransformationsComposite();
     private Job2dDriver driver;
     private int x = 0, y = 0;
-
-    public TransformationDriver() {
-    }
 
     @Override
     public void setPosition(int x, int y) {
@@ -30,6 +28,10 @@ public class TransformationDriver implements Job2dDriver {
 
     public void setDriver(Job2dDriver driver) {
         this.driver = driver;
+    }
+
+    public Job2dDriver getDriver() {
+        return this.driver;
     }
 
     public void addTransformationMethod(TransformationMethod transformationMethod) {

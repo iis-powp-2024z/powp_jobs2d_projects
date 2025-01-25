@@ -1,7 +1,6 @@
 package edu.kis.powp.jobs2d.canvas;
 
 import edu.kis.powp.jobs2d.command.CompoundCommand;
-import edu.kis.powp.jobs2d.drivers.DriverManager;
 
 /**
  * Interface defining the structure of a canvas.

@@ -1,0 +1,6 @@
+name,x,y
+SetPositionCommand,-50,-50
+OperateToCommand,50,-50
+OperateToCommand,50,50
+OperateToCommand,-50,50
+OperateToCommand,-50,-50
