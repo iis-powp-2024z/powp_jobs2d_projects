@@ -1,6 +1,7 @@
 package edu.kis.powp.jobs2d.drivers;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
 
 import java.util.logging.Logger;
 
@@ -31,5 +32,9 @@ public class ImprovedLoggerDriver implements Job2dDriver {
 
     public String toString() {
         return "Logger driver";
+    }
+
+    public void visit(IVisitor visitor) {
+        visitor.visit(this);
     }
 }
