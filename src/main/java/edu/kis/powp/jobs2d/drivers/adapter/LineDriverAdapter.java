@@ -43,7 +43,7 @@ public class LineDriverAdapter implements LineDriver {
     }
 
     @Override
-    public void visit(IVisitor visitor) {
+    public void accpet(IVisitor visitor) {
         visitor.visit(this);
     }
 }

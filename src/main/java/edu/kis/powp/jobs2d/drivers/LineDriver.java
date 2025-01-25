@@ -4,5 +4,5 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
 
 public interface LineDriver extends Job2dDriver {
-    void visit(IVisitor visitor);
+    void accpet(IVisitor visitor);
 }
