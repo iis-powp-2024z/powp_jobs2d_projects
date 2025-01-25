@@ -2,6 +2,7 @@ package edu.kis.powp.jobs2d.drivers.adapter.transformation;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
+import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
 
 public class TransformationDriver implements DriverDecorator {
     private final TransformationsComposite transformationsComposite = new TransformationsComposite();
@@ -40,5 +41,9 @@ public class TransformationDriver implements DriverDecorator {
 
     public void removeTransformationMethod(TransformationMethod transformationMethod) {
         transformationsComposite.remove(transformationMethod);
+    }
+
+    public void visit(IVisitor visitor) {
+        visitor.visit(this);
     }
 }
