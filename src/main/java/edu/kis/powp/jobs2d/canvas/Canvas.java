@@ -44,6 +44,8 @@ public class Canvas implements ICanvas{
     public String getGroup() {
         return group;
     }
-    
-    
+
+    public Boolean checkIfPointInside(int x, int y) {
+        return false;
+    }
 }

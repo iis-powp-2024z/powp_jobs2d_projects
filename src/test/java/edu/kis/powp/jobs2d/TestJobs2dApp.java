@@ -16,6 +16,7 @@ import edu.kis.powp.jobs2d.canvas.RectangleCanvas;
 import edu.kis.powp.jobs2d.canvas.RectangleCanvas.Format;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
+import edu.kis.powp.jobs2d.drivers.CanvasRestrictionDriver;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
@@ -86,6 +87,10 @@ public class TestJobs2dApp {
     
         driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
         DriverFeature.addDriver("Special line Simulator", driver);
+
+        driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
+        driver = new CanvasRestrictionDriver(driver);
+        DriverFeature.addDriver("Canvas restriction driver", driver);
 
         // Composite usage
         driverComposite.addDriver(loggerDriver);

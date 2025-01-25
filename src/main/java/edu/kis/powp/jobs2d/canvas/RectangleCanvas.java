@@ -8,7 +8,8 @@ import edu.kis.powp.jobs2d.command.CanvasCommandsFactory;
 
 public class RectangleCanvas extends Canvas{
     private Format format;
-
+    private Integer width;
+    private Integer height;
     public static final String GROUP_A = "a";
     public static final String GROUP_B = "b";
     
@@ -20,6 +21,8 @@ public class RectangleCanvas extends Canvas{
     public RectangleCanvas(Format format) {
         super(CanvasCommandsFactory.createRectangleCommand(format.getWidth(), format.getHeight(), format.name()), format.name(), format.name());
         this.format = format;
+        this.width = format.getWidth();
+        this.height = format.getHeight();
     }
     
     /**
@@ -31,6 +34,8 @@ public class RectangleCanvas extends Canvas{
     public RectangleCanvas(int width, int height, String name, String group) {
         super(CanvasCommandsFactory.createRectangleCommand(width, height, name), name, group);
         this.format = null; // Indicates custom dimensions
+        this.width = width;
+        this.height = height;
     }
     
     /**
@@ -87,5 +92,40 @@ public class RectangleCanvas extends Canvas{
             return "custom";
         }
         return format.group;
+    }
+
+    /**
+     * Check if point from given coordinates is inside ellipse.
+     *
+     * @return true if inside, else false
+     */
+    public Boolean checkIfPointInside(int x, int y) {
+        int width = this.getWidth();
+        int height = this.getHeight();
+        int left = -width / 2;
+        int top = -height / 2;
+        int right = width / 2;
+        int bottom  = height / 2;
+
+        if (x > right || x < left) return false;
+        return y >= top && y <= bottom;
+    }
+
+    /**
+     * Gets the width of the rectangle.
+     *
+     * @return width of the rectangle.
+     */
+    public Integer getWidth() {
+        return this.width;
+    }
+
+    /**
+     * Gets the height of the rectangle.
+     *
+     * @return height of the rectangle.
+     */
+    public Integer getHeight() {
+        return this.height;
     }
 }

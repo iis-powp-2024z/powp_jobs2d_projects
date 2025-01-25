@@ -22,4 +22,9 @@ public interface ICanvas {
      * @return The group of the canvas.
      */
     String getGroup();
+
+    /**
+     * @return If point is inside canvas then true, else false.
+     */
+    Boolean checkIfPointInside(int x, int y);
 }
