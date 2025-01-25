@@ -43,7 +43,7 @@ public class TransformationDriver implements DriverDecorator {
         transformationsComposite.remove(transformationMethod);
     }
 
-    public void visit(IVisitor visitor) {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }
