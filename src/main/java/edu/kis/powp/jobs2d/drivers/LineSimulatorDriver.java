@@ -4,5 +4,7 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
 
 public interface LineSimulatorDriver extends Job2dDriver {
-    void accept(IVisitor visitor);
+    default void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
 }

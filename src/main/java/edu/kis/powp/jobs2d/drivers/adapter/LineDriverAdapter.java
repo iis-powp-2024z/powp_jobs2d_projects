@@ -41,9 +41,4 @@ public class LineDriverAdapter implements LineSimulatorDriver {
     public String toString() {
         return "2d device simulator - " + name;
     }
-
-    @Override
-    public void accept(IVisitor visitor) {
-        visitor.visit(this);
-    }
 }
