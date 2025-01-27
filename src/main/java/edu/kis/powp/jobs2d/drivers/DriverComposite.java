@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
-import edu.kis.powp.jobs2d.drivers.composite.CompositeDriver;
+import edu.kis.powp.jobs2d.drivers.composite.IDriverComposite;
 import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
 
-public class DriverComposite implements CompositeDriver {
+public class DriverComposite implements IDriverComposite {
     private final List<Job2dDriver> drivers = new ArrayList<>();
 
     @Override
