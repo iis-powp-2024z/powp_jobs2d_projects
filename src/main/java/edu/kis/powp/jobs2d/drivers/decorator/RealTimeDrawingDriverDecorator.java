@@ -1,11 +1,12 @@
 package edu.kis.powp.jobs2d.drivers.decorator;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.LineSimulatorDriver;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RealTimeDrawingDriverDecorator implements Job2dDriver {
+public class RealTimeDrawingDriverDecorator implements LineSimulatorDriver {
     private final long delayBetweenStepsInMs;
     private final int pixelsDrawnInStep;
     private int x;
