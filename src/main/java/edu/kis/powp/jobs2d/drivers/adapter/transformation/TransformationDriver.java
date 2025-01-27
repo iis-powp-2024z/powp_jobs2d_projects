@@ -42,8 +42,4 @@ public class TransformationDriver implements DriverDecorator {
     public void removeTransformationMethod(TransformationMethod transformationMethod) {
         transformationsComposite.remove(transformationMethod);
     }
-
-    public void accept(IVisitor visitor) {
-        visitor.visit(this);
-    }
 }

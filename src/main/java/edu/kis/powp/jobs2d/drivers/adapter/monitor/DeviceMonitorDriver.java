@@ -36,7 +36,4 @@ public class DeviceMonitorDriver implements DriverDecorator {
         this.driver = driver;
     }
 
-    public void accept(IVisitor visitor) {
-        visitor.visit(this);
-    }
 }
