@@ -33,11 +33,4 @@ public class DriverComposite implements CompositeDriver {
     public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
-
-    @Override
-    public void visitDrivers(IVisitor visitor) {
-        for (Job2dDriver driver : drivers) {
-            visitor.visit(driver);
-        }
-    }
 }
