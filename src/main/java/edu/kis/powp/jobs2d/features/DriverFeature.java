@@ -5,6 +5,7 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.SelectDriverMenuOptionListener;
 import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverInfoSubscriber;
+import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverVisitorSubscriber;
 
 public class DriverFeature {
 
@@ -26,7 +27,9 @@ public class DriverFeature {
         app.addComponentMenu(DriverFeature.class, "Drivers");
 
         UpdateDriverInfoSubscriber updateDriverInfoSubscriber = new UpdateDriverInfoSubscriber(app);
+        UpdateDriverVisitorSubscriber updateDriverVisitorSubscriber = new UpdateDriverVisitorSubscriber();
         driverManager.addSubscriber(updateDriverInfoSubscriber);
+        driverManager.addSubscriber(updateDriverVisitorSubscriber);
     }
 
     /**
