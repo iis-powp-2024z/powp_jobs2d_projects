@@ -29,8 +29,14 @@ public class DriverComposite implements IDriverComposite {
         }
     }
 
+    public List<Job2dDriver> getDrivers() {
+        return drivers;
+    }
+
     @Override
     public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
+
+
 }
