@@ -2,13 +2,13 @@ package edu.kis.powp.jobs2d.drivers.adapter;
 
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.ILine;
-import edu.kis.powp.jobs2d.drivers.LineDriver;
+import edu.kis.powp.jobs2d.drivers.LineSimulatorDriver;
 import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
 
 /**
  * Line adapter - Job2dDriver with DrawPanelController object.
  */
-public class LineDriverAdapter implements LineDriver {
+public class LineDriverAdapter implements LineSimulatorDriver {
     private ILine line;
     private int startX = 0, startY = 0;
     private String name;
@@ -43,7 +43,7 @@ public class LineDriverAdapter implements LineDriver {
     }
 
     @Override
-    public void accpet(IVisitor visitor) {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }
