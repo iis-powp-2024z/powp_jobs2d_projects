@@ -1,7 +1,5 @@
-package edu.kis.powp.jobs2d.drivers;
+package edu.kis.powp.jobs2d.drivers.adapter.transformation;
 
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
 import edu.kis.powp.observer.Publisher;
 
 import javax.swing.*;
@@ -14,7 +12,7 @@ public class ToggleTransformationOptionListener implements ActionListener {
     private TransformationDriver transformationDriver;
     private TransformationMethod transformationMethod;
 
-    public ToggleTransformationOptionListener(DriverManager driverManager, TransformationDriver transformationDriver, TransformationMethod transformationMethod, Publisher publisher) {
+    public ToggleTransformationOptionListener(TransformationDriver transformationDriver, TransformationMethod transformationMethod, Publisher publisher) {
         this.transformationDriver = transformationDriver;
         this.publisher = publisher;
         this.transformationMethod = transformationMethod;

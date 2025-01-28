@@ -8,8 +8,9 @@ import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverInfoSubscriber;
 
 public class DriverFeature {
 
-    private static DriverManager driverManager = new DriverManager();
+    private static final DriverManager driverManager = new DriverManager();
     private static Application app;
+    private static final UsageMonitorFeature usageMonitorFeature = new UsageMonitorFeature();
 
     public static DriverManager getDriverManager() {
         return driverManager;
@@ -17,7 +18,7 @@ public class DriverFeature {
 
     /**
      * Setup jobs2d drivers Plugin and add to application.
-     * 
+     *
      * @param application Application context.
      */
     public static void setupDriverPlugin(Application application) {
@@ -30,7 +31,7 @@ public class DriverFeature {
 
     /**
      * Add driver to context, create button in driver menu.
-     * 
+     *
      * @param name   Button name.
      * @param driver Job2dDriver object.
      */

@@ -1,0 +1,7 @@
+<commands>
+    <command name="SetPositionCommand" x="-50" y="-50"/>
+    <command name="OperateToCommand" x="50" y="-50"/>
+    <command name="OperateToCommand" x="50" y="50"/>
+    <command name="OperateToCommand" x="-50" y="50"/>
+    <command name="OperateToCommand" x="-50" y="-50"/>
+</commands>

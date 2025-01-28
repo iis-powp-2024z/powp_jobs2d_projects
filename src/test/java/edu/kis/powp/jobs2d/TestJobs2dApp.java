@@ -1,11 +1,5 @@
 package edu.kis.powp.jobs2d;
 
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
@@ -15,19 +9,25 @@ import edu.kis.powp.jobs2d.canvas.RectangleCanvas;
 import edu.kis.powp.jobs2d.canvas.RectangleCanvas.Format;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
+import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowVisitorChangeObserver;
+import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
+import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
 import edu.kis.powp.jobs2d.drivers.RecordMacroDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
+import edu.kis.powp.jobs2d.drivers.decorator.RealTimeDrawingDriverDecorator;
 import edu.kis.powp.jobs2d.events.*;
-import edu.kis.powp.jobs2d.features.CommandsFeature;
-import edu.kis.powp.jobs2d.features.DrawerFeature;
-import edu.kis.powp.jobs2d.features.DriverFeature;
-import edu.kis.powp.jobs2d.features.MouseClickDrawFeature;
-import edu.kis.powp.jobs2d.features.CanvasFeature;
 import edu.kis.powp.jobs2d.features.*;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -63,6 +63,8 @@ public class TestJobs2dApp {
      * @param application Application context.
      */
     private static void setupDrivers(Application application) {
+        DriverComposite driverComposite = new DriverComposite();    // addidtion to composite
+
         Job2dDriver loggerDriver = new ImprovedLoggerDriver(false);
         DriverFeature.addDriver("Logger driver", loggerDriver);
 
@@ -70,31 +72,45 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Extended logger driver", extendedLoggerDriver);
 
         DrawPanelController drawerController = DrawerFeature.getDrawerController();
-        Job2dDriver driver = new LineDriverAdapter(drawerController, LineFactory.getBasicLine(), "basic");
+        Job2dDriver basicLineDriver = new LineDriverAdapter(drawerController, LineFactory.getBasicLine(), "basic");
 
-        DriverFeature.addDriver("Line Simulator", driver);
-        DriverFeature.getDriverManager().setCurrentDriver(driver);
+        DriverFeature.addDriver("Line Simulator", basicLineDriver);
+        DriverFeature.getDriverManager().setCurrentDriver(basicLineDriver);
+        driverComposite.addDriver(basicLineDriver);  // addidtion to composite
 
-        Job2dDriver macroDriver = new RecordMacroDriver(driver);
+        Job2dDriver macroDriver = new RecordMacroDriver(basicLineDriver);
         DriverFeature.addDriver("Macro driver", macroDriver);
 
-        driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
-        DriverFeature.addDriver("Special line Simulator", driver);
+        Job2dDriver fastRealTimeDriver = new RealTimeDrawingDriverDecorator(basicLineDriver, 1000, 10);
+        DriverFeature.addDriver("Line Simulator (Real Time)", fastRealTimeDriver);
+
+        Job2dDriver specialLineDriver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
+        DriverFeature.addDriver("Special line Simulator", specialLineDriver);
+
+        Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(specialLineDriver, 100, 1);
+        DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
+
+        // Composite usage
+        driverComposite.addDriver(loggerDriver);
+        driverComposite.addDriver(basicLineDriver);
+        DriverFeature.addDriver("Lines (including special) and logger", driverComposite);
     }
 
     private static void setupTransformations() {
-        TransformationFeature.addTransformation("Scale 2x", DriverFeature.getDriverManager(), new TransformationScale(2.0));
-        TransformationFeature.addTransformation("Scale 0.5x", DriverFeature.getDriverManager(), new TransformationScale(0.5));
-        TransformationFeature.addTransformation("Flip X", DriverFeature.getDriverManager(), new TransformationFlip(TransformationFlipAxis.X));
-        TransformationFeature.addTransformation("Flip Y", DriverFeature.getDriverManager(), new TransformationFlip(TransformationFlipAxis.Y));
+        TransformationFeature.addTransformation("Scale 2x", new TransformationScale(2.0));
+        TransformationFeature.addTransformation("Scale 0.5x", new TransformationScale(0.5));
+        TransformationFeature.addTransformation("Flip X", new TransformationFlip(TransformationFlipAxis.X));
+        TransformationFeature.addTransformation("Flip Y", new TransformationFlip(TransformationFlipAxis.Y));
     }
 
     private static void setupWindows(Application application) {
-        CommandManagerWindow commandManager = new CommandManagerWindow(CommandsFeature.getDriverCommandManager());
+        CommandManagerWindow commandManager = new CommandManagerWindow(CommandsFeature.getDriverCommandManager(), new JacksonParserFactory());
         application.addWindowComponent("Command Manager", commandManager);
 
         CommandManagerWindowCommandChangeObserver windowObserver = new CommandManagerWindowCommandChangeObserver(commandManager);
+        CommandManagerWindowVisitorChangeObserver visitorObserver = new CommandManagerWindowVisitorChangeObserver(commandManager);
         CommandsFeature.getDriverCommandManager().getChangePublisher().addSubscriber(windowObserver);
+        CommandsFeature.getDriverCommandManager().getChangePublisher().addSubscriber(visitorObserver);
     }
 
     /**
@@ -131,19 +147,19 @@ public class TestJobs2dApp {
 
                 CanvasFeature.setCanvases(canvases);
                 CanvasFeature.setupCanvasFeature(app);
-                
+
+                UsageMonitorFeature.setupDeviceMonitorPlugin(DriverFeature.getDriverManager());
                 DriverFeature.setupDriverPlugin(app);
+                setupDrivers(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
                 MacroFeature.setupMacroFeature(app);
                 setupTransformations();
-                setupDrivers(app);
                 setupPresetTests(app);
                 setupCommandTests(app);
                 setupLogger(app);
                 setupWindows(app);
 
                 MouseClickDrawFeature.setupMousePlugin(app, DriverFeature.getDriverManager());
-
                 app.setVisibility(true);
             }
         });
