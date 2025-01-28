@@ -2,7 +2,6 @@ package edu.kis.powp.jobs2d.drivers.visitor;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
-import edu.kis.powp.jobs2d.drivers.LineSimulatorDriver;
 import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 import edu.kis.powp.jobs2d.drivers.logger.LoggerDriver;
@@ -35,11 +34,6 @@ public class DriversCountVisitor implements IDriverVisitor {
 
     @Override
     public void visit(VisitableJob2dDriver driver) {
-        count++;
-    }
-
-    @Override
-    public void visit(LineSimulatorDriver driver) {
         count++;
     }
 
