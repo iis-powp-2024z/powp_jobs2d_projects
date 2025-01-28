@@ -18,6 +18,7 @@ public class SelectMacroOptionListener implements ActionListener {
         switch (option){
             case 0: MacroFeature.clear(); break;
             case 1: MacroFeature.toggle(); break;
+            case 2: MacroFeature.run(); break;
         }
     }
 }

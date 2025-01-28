@@ -1,5 +1,6 @@
 package edu.kis.powp.jobs2d.features;
 
+import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.command.CompoundCommand;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.command.DriverCommand;
@@ -19,10 +20,12 @@ public class MacroFeature {
 
         SelectMacroOptionListener clearOption = new SelectMacroOptionListener(0);
         SelectMacroOptionListener startOption = new SelectMacroOptionListener(1);
+        SelectMacroOptionListener runOption = new SelectMacroOptionListener(2);
 
         application.addComponentMenu(MacroFeature.class, "Macro");
         application.addComponentMenuElement(MacroFeature.class, "Clear", clearOption);
         application.addComponentMenuElementWithCheckBox(MacroFeature.class, "Start/Stop", startOption, false);
+        application.addComponentMenuElement(MacroFeature.class, "Run", runOption);
 
     }
     public static void setCommand(DriverCommand command){
@@ -37,6 +40,14 @@ public class MacroFeature {
             System.out.println("start");
         else
             System.out.println("stop");
+    }
+    
+    public static void run(){
+        isRecording = false;
+        CompoundCommand command = getRecordedCommand();
+        Job2dDriver currentDriver = DriverFeature.getDriverManager().getCurrentDriver();
+        command.execute(currentDriver);
+        System.out.println("Executing: " + command);
     }
 
     public static void clear(){
