@@ -7,8 +7,8 @@ import edu.kis.powp.jobs2d.drivers.visitor.IDriverVisitor;
 import java.util.List;
 
 public interface IDriverComposite extends VisitableJob2dDriver {
-    void addDriver(Job2dDriver driver);
-    List<Job2dDriver> getDrivers();
+    void addDriver(VisitableJob2dDriver driver);
+    List<VisitableJob2dDriver> getDrivers();
 
     @Override
     default void accept(IDriverVisitor visitor) {
