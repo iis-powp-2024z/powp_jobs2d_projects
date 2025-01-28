@@ -1,5 +1,6 @@
 package edu.kis.powp.jobs2d.drivers.visitor;
 
+import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.LineSimulatorDriver;
 import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
@@ -15,11 +16,19 @@ public class DriversCountVisitor implements IDriverVisitor {
 
     @Override
     public void visit(DriverComposite driver) {
-        count += driver.getDrivers().size();
+        for (Job2dDriver innerDriver : driver.getDrivers()) {
+            if (innerDriver instanceof VisitableJob2dDriver) {
+                ((VisitableJob2dDriver) innerDriver).accept(this);
+            }
+        }
     }
 
     @Override
     public void visit(DriverDecorator driver) {
+        Job2dDriver wrappedDriver = driver.getDriver();
+        if (wrappedDriver instanceof VisitableJob2dDriver) {
+            ((VisitableJob2dDriver) wrappedDriver).accept(this);
+        }
         count++;
     }
 
