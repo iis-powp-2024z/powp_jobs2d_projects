@@ -19,16 +19,13 @@ public class DriversCountVisitor implements IDriverVisitor {
 
     @Override
     public void visit(IDriverComposite driver) {
-        List<VisitableJob2dDriver> drivers = driver.getDrivers().stream()
-                .map(driver1 -> (VisitableJob2dDriver) driver1)
-                .collect(Collectors.toList());
-
-        drivers.forEach(driver1 -> driver1.accept(this));
+        List<VisitableJob2dDriver> drivers = driver.getDrivers();
+        drivers.forEach(d -> d.accept(this));
     }
 
     @Override
     public void visit(DriverDecorator driver) {
-        VisitableJob2dDriver wrappedDriver = (VisitableJob2dDriver) driver.getDriver();
+        VisitableJob2dDriver wrappedDriver = driver.getDriver();
         wrappedDriver.accept(this);
         count++;
     }
