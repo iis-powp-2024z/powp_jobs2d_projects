@@ -10,7 +10,9 @@ public class DriversCountVisitor implements IDriverVisitor {
     private long count = 0;
 
     public long getDriversCount(){
-        return count;
+        long tmpCount = count;
+        count = 0;
+        return tmpCount;
     }
 
     @Override
