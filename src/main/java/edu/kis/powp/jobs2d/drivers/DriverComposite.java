@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.composite.IDriverComposite;
-import edu.kis.powp.jobs2d.drivers.visitor.IVisitor;
+import edu.kis.powp.jobs2d.drivers.visitor.IDriverVisitor;
 
 public class DriverComposite implements IDriverComposite {
     private final List<Job2dDriver> drivers = new ArrayList<>();
@@ -34,7 +34,7 @@ public class DriverComposite implements IDriverComposite {
     }
 
     @Override
-    public void accept(IVisitor visitor) {
+    public void accept(IDriverVisitor visitor) {
         visitor.visit(this);
     }
 

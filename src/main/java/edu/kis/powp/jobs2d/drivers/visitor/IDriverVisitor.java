@@ -6,7 +6,7 @@ import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 import edu.kis.powp.jobs2d.drivers.logger.LoggerDriver;
 
-public interface IVisitor {
+public interface IDriverVisitor {
     void visit(DriverComposite driver);
     void visit(VisitableJob2dDriver driver);
     void visit(DriverDecorator driver);
