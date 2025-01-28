@@ -7,10 +7,10 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.composite.IDriverComposite;
 
 public class DriverComposite implements IDriverComposite {
-    private final List<Job2dDriver> drivers = new ArrayList<>();
+    private final List<VisitableJob2dDriver> drivers = new ArrayList<>();
 
     @Override
-    public void addDriver(Job2dDriver driver) {
+    public void addDriver(VisitableJob2dDriver driver) {
         drivers.add(driver);
     }
 
@@ -28,7 +28,7 @@ public class DriverComposite implements IDriverComposite {
         }
     }
 
-    public List<Job2dDriver> getDrivers() {
-        return drivers;
+    public List<VisitableJob2dDriver> getDrivers() {
+        return new ArrayList<>(drivers);
     }
 }

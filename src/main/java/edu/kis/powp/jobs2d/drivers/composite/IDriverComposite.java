@@ -1,6 +1,5 @@
 package edu.kis.powp.jobs2d.drivers.composite;
 
-import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
 import edu.kis.powp.jobs2d.drivers.visitor.IDriverVisitor;
 
