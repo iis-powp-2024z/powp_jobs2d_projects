@@ -2,6 +2,7 @@ package edu.kis.powp.jobs2d;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.LineSimulatorDriver;
+import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
 import edu.kis.powp.jobs2d.magicpresets.FiguresJoe;
 
 @SuppressWarnings("unused")
@@ -21,7 +22,7 @@ public class Job2dDriverTest {
         FiguresJoe.figureScript1(driver);
     }
 
-    private static class StubDriver implements LineSimulatorDriver {
+    private static class StubDriver implements VisitableJob2dDriver {
 
         @Override
         public void operateTo(int x, int y) {
