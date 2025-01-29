@@ -18,7 +18,6 @@ public class ToggleDriverDecoratorOptionListener implements ActionListener {
         JCheckBoxMenuItem item = (JCheckBoxMenuItem) e.getSource();
         if (item.isSelected()) {
             ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(driverDecorator);
-
         } else {
             ApplyDriverDecoratorsSubscriber.getInstance().removeDriverDecorator(driverDecorator);
         }
