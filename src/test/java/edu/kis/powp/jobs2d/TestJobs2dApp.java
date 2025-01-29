@@ -16,7 +16,6 @@ import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
-import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
 import edu.kis.powp.jobs2d.drivers.decorator.RealTimeDrawingDriverDecorator;
 import edu.kis.powp.jobs2d.events.*;
@@ -58,8 +57,9 @@ public class TestJobs2dApp {
 
         application.addTest("Flip next command vertically", new SelectCommandTransformVisitorListener(new TransformationFlip(TransformationFlipAxis.X)));
         application.addTest("Flip next command horizontally", new SelectCommandTransformVisitorListener(new TransformationFlip(TransformationFlipAxis.Y)));
-        application.addTest("Scale next command 2x down", new SelectCommandTransformVisitorListener(new TransformationScale(0.5)));
-        application.addTest("Scale next command 2x up", new SelectCommandTransformVisitorListener(new TransformationScale(2)));
+
+        application.addTest("Scale next command down by 50%", new SelectCommandTransformVisitorListener(new TransformationScale(0.5)));
+        application.addTest("Scale next command up by 200%", new SelectCommandTransformVisitorListener(new TransformationScale(2)));
     }
 
     /**
