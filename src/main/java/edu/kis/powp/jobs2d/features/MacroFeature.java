@@ -6,6 +6,7 @@ import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.builder.CompoundCommandBuilder;
 import edu.kis.powp.jobs2d.events.SelectMacroOptionListener;
+import edu.kis.powp.jobs2d.events.SelectMacroOptionListener.MacroAction;
 
 public class MacroFeature {
     private static Application application;
@@ -18,9 +19,9 @@ public class MacroFeature {
         recordedCommand.setName("Record command");
         application = app;
 
-        SelectMacroOptionListener clearOption = new SelectMacroOptionListener(0);
-        SelectMacroOptionListener startOption = new SelectMacroOptionListener(1);
-        SelectMacroOptionListener runOption = new SelectMacroOptionListener(2);
+        SelectMacroOptionListener clearOption = new SelectMacroOptionListener(MacroAction.CLEAR);
+        SelectMacroOptionListener startOption = new SelectMacroOptionListener(MacroAction.TOGGLE);
+        SelectMacroOptionListener runOption = new SelectMacroOptionListener(MacroAction.RUN);
 
         application.addComponentMenu(MacroFeature.class, "Macro");
         application.addComponentMenuElement(MacroFeature.class, "Clear", clearOption);
@@ -36,10 +37,6 @@ public class MacroFeature {
 
     public static void toggle(){
         isRecording = !isRecording;
-        if (isRecording)
-            System.out.println("start");
-        else
-            System.out.println("stop");
     }
     
     public static void run(){
