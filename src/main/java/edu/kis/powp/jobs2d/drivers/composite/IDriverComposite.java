@@ -10,7 +10,7 @@ public interface IDriverComposite extends VisitableJob2dDriver {
     List<VisitableJob2dDriver> getDrivers();
 
     @Override
-    default long accept(IDriverVisitor visitor) {
-        return visitor.visit(this);
+    default void accept(IDriverVisitor visitor) {
+        visitor.visit(this);
     }
 }

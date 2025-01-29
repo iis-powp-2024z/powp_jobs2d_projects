@@ -9,7 +9,7 @@ public interface DriverDecorator extends VisitableJob2dDriver {
     void setDriver(VisitableJob2dDriver driver);
 
     @Override
-    default long accept(IDriverVisitor visitor) {
-        return visitor.visit(this);
+    default void accept(IDriverVisitor visitor) {
+        visitor.visit(this);
     }
 }
