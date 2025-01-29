@@ -9,24 +9,24 @@ import java.util.List;
 
 public class DriversCountVisitor implements IDriverVisitor {
     @Override
-    public long visit(IDriverComposite driver) {
+    public void visit(IDriverComposite driver) {
         List<VisitableJob2dDriver> drivers = driver.getDrivers();
         return 1 + drivers.stream().mapToLong(d -> d.accept(this)).sum();
     }
 
     @Override
-    public long visit(DriverDecorator driver) {
+    public void visit(DriverDecorator driver) {
         VisitableJob2dDriver wrappedDriver = driver.getDriver();
         return 1 + wrappedDriver.accept(this);
     }
 
     @Override
-    public long visit(VisitableJob2dDriver driver) {
+    public void visit(VisitableJob2dDriver driver) {
         return 1;
     }
 
     @Override
-    public long visit(LoggerDriver driver) {
+    public void visit(LoggerDriver driver) {
         return 1;
     }
 }
