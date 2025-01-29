@@ -29,11 +29,6 @@ public final class CompoundCommand implements ICompoundCommand {
     }
 
     @Override
-    public List<DriverCommand> getCommandList() {
-        return commandList;
-    }
-
-    @Override
     public String toString() {
         return name;
     }

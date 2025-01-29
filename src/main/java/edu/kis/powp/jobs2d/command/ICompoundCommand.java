@@ -12,8 +12,4 @@ public interface ICompoundCommand extends DriverCommand {
 
     public Iterator<DriverCommand> iterator();
 
-    public List<DriverCommand> getCommandList();
-
-    public String toString();
-
 }

@@ -10,12 +10,12 @@ public class CompoundCommandCopyVisitor implements CommandVisitor {
 
     @Override
     public void visit(OperateToCommand command) {
-        copiedCommand = command.copy();
+        copiedCommand = new OperateToCommand(command.getPosX(), command.getPosY());
     }
 
     @Override
     public void visit(SetPositionCommand command) {
-        copiedCommand = command.copy();
+        copiedCommand = new SetPositionCommand(command.getPosX(), command.getPosY());
     }
 
     @Override
