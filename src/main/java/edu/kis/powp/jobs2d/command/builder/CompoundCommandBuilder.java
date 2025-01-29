@@ -12,7 +12,6 @@ public class CompoundCommandBuilder {
     private String name;
 
     public CompoundCommandBuilder addCommand(DriverCommand command) {
-        System.out.println("NoOfCommands: " + commandList.size());
         commandList.add(command);
         return this;
     }
