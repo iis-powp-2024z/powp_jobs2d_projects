@@ -16,25 +16,27 @@ public class DriversCountVisitor implements IDriverVisitor {
 
     @Override
     public void visit(IDriverComposite driver) {
-        count = 1;
+        count = 0; // Reset
         List<VisitableJob2dDriver> drivers = driver.getDrivers();
         drivers.forEach(d -> d.accept(this));
+        count += 1;
     }
 
     @Override
     public void visit(DriverDecorator driver) {
-        count = 1;
+        count = 0; // Reset
         VisitableJob2dDriver wrappedDriver = driver.getDriver();
         wrappedDriver.accept(this);
+        count += 1;
     }
 
     @Override
     public void visit(VisitableJob2dDriver driver) {
-        count = 1;
+        count = 1; // Reset plus driver
     }
 
     @Override
     public void visit(LoggerDriver driver) {
-        count = 1;
+        count = 1; // Reset plus driver
     }
 }
