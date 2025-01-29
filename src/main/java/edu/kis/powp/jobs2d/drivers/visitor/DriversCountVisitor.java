@@ -8,25 +8,33 @@ import edu.kis.powp.jobs2d.drivers.logger.LoggerDriver;
 import java.util.List;
 
 public class DriversCountVisitor implements IDriverVisitor {
+    private long count = 0;
+
+    public long getCount() {
+        return count;
+    }
+
     @Override
     public void visit(IDriverComposite driver) {
+        count = 1;
         List<VisitableJob2dDriver> drivers = driver.getDrivers();
-        return 1 + drivers.stream().mapToLong(d -> d.accept(this)).sum();
+        drivers.forEach(d -> d.accept(this));
     }
 
     @Override
     public void visit(DriverDecorator driver) {
+        count = 1;
         VisitableJob2dDriver wrappedDriver = driver.getDriver();
-        return 1 + wrappedDriver.accept(this);
+        wrappedDriver.accept(this);
     }
 
     @Override
     public void visit(VisitableJob2dDriver driver) {
-        return 1;
+        count = 1;
     }
 
     @Override
     public void visit(LoggerDriver driver) {
-        return 1;
+        count = 1;
     }
 }

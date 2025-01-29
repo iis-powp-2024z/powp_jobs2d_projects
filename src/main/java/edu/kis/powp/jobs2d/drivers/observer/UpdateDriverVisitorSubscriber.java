@@ -18,6 +18,7 @@ public class UpdateDriverVisitorSubscriber implements Subscriber {
     @Override
     public void update() {
         VisitableJob2dDriver currentDriver = DriverFeature.getDriverManager().getCurrentDriver();
-        logger.info("Drivers count is " + currentDriver.accept(visitor));
+        currentDriver.accept(visitor);
+        logger.info("Drivers count is " + visitor.getCount());
     }
 }
