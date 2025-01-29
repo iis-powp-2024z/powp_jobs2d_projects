@@ -2,8 +2,10 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.CanvasRestrictionDriverDecorator;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.SelectDriverMenuOptionListener;
+import edu.kis.powp.jobs2d.drivers.ToggleDriverDecoratorOptionListener;
 import edu.kis.powp.jobs2d.drivers.observer.UpdateDriverInfoSubscriber;
 
 public class DriverFeature {
@@ -11,6 +13,7 @@ public class DriverFeature {
     private static final DriverManager driverManager = new DriverManager();
     private static Application app;
     private static final UsageMonitorFeature usageMonitorFeature = new UsageMonitorFeature();
+    private static final CanvasRestrictionDriverDecorator driverDecorator = new CanvasRestrictionDriverDecorator(null);
 
     public static DriverManager getDriverManager() {
         return driverManager;
@@ -38,5 +41,10 @@ public class DriverFeature {
     public static void addDriver(String name, Job2dDriver driver) {
         SelectDriverMenuOptionListener listener = new SelectDriverMenuOptionListener(driver, driverManager);
         app.addComponentMenuElement(DriverFeature.class, name, listener);
+    }
+
+    public static void addDriverDecorator(String name) {
+        ToggleDriverDecoratorOptionListener listener = new ToggleDriverDecoratorOptionListener(driverDecorator);
+        app.addComponentMenuElementWithCheckBox(DriverFeature.class, name, listener, false);
     }
 }

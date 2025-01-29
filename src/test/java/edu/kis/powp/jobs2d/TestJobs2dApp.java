@@ -9,7 +9,6 @@ import edu.kis.powp.jobs2d.canvas.RectangleCanvas;
 import edu.kis.powp.jobs2d.canvas.RectangleCanvas.Format;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
-import edu.kis.powp.jobs2d.drivers.CanvasRestrictionDriver;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowVisitorChangeObserver;
 import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
@@ -87,9 +86,7 @@ public class TestJobs2dApp {
         Job2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(specialLineDriver, 100, 1);
         DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
 
-        driver = new LineDriverAdapter(drawerController, LineFactory.getSpecialLine(), "special");
-        driver = new CanvasRestrictionDriver(driver);
-        DriverFeature.addDriver("Canvas restriction driver", driver);
+        DriverFeature.addDriverDecorator("Canvas restiction");
 
         // Composite usage
         driverComposite.addDriver(loggerDriver);
