@@ -1,20 +1,23 @@
 package edu.kis.powp.jobs2d.features;
-
-import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.command.CompoundCommand;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.builder.CompoundCommandBuilder;
+import edu.kis.powp.jobs2d.command.manager.DriverCommandManager;
+import edu.kis.powp.jobs2d.drivers.DriverManager;
+import edu.kis.powp.jobs2d.drivers.RecordMacroDriverDecorator;
+import edu.kis.powp.jobs2d.drivers.observer.ApplyDriverDecoratorsSubscriber;
 import edu.kis.powp.jobs2d.events.SelectMacroOptionListener;
 import edu.kis.powp.jobs2d.events.SelectMacroOptionListener.MacroAction;
 
 public class MacroFeature {
     private static Application application;
     private static CompoundCommandBuilder recordedCommand;
+    private static final RecordMacroDriverDecorator recordMacroDriverDecorator = new RecordMacroDriverDecorator();
 
     private static boolean isRecording = false;
 
-    public static void setupMacroFeature(Application app) {
+    public static void setupMacroFeature(Application app, DriverManager driverManager) {
         recordedCommand = new CompoundCommandBuilder();
         recordedCommand.setName("Record command");
         application = app;
@@ -28,6 +31,8 @@ public class MacroFeature {
         application.addComponentMenuElementWithCheckBox(MacroFeature.class, "Start/Stop", startOption, false);
         application.addComponentMenuElement(MacroFeature.class, "Run", runOption);
 
+        ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(recordMacroDriverDecorator);
+        driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
     }
     public static void setCommand(DriverCommand command){
         if(isRecording){
@@ -40,11 +45,9 @@ public class MacroFeature {
     }
     
     public static void run(){
-        isRecording = false;
         CompoundCommand command = getRecordedCommand();
-        Job2dDriver currentDriver = DriverFeature.getDriverManager().getCurrentDriver();
-        command.execute(currentDriver);
-        System.out.println("Executing: " + command);
+        DriverCommandManager manager = CommandsFeature.getDriverCommandManager();
+        manager.setCurrentCommand(command);
     }
 
     public static void clear(){

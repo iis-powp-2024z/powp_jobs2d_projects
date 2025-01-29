@@ -13,7 +13,6 @@ import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowVisitorChangeObserver
 import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
 import edu.kis.powp.jobs2d.drivers.DriverComposite;
 import edu.kis.powp.jobs2d.drivers.ImprovedLoggerDriver;
-import edu.kis.powp.jobs2d.drivers.RecordMacroDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlip;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationFlipAxis;
@@ -77,9 +76,6 @@ public class TestJobs2dApp {
         DriverFeature.addDriver("Line Simulator", basicLineDriver);
         DriverFeature.getDriverManager().setCurrentDriver(basicLineDriver);
         driverComposite.addDriver(basicLineDriver);  // addidtion to composite
-
-        Job2dDriver macroDriver = new RecordMacroDriver(basicLineDriver);
-        DriverFeature.addDriver("Macro driver", macroDriver);
 
         Job2dDriver fastRealTimeDriver = new RealTimeDrawingDriverDecorator(basicLineDriver, 1000, 10);
         DriverFeature.addDriver("Line Simulator (Real Time)", fastRealTimeDriver);
@@ -152,7 +148,7 @@ public class TestJobs2dApp {
                 DriverFeature.setupDriverPlugin(app);
                 setupDrivers(app);
                 TransformationFeature.setupTransformationPlugin(app, DriverFeature.getDriverManager());
-                MacroFeature.setupMacroFeature(app);
+                MacroFeature.setupMacroFeature(app, DriverFeature.getDriverManager());
                 setupTransformations();
                 setupPresetTests(app);
                 setupCommandTests(app);
