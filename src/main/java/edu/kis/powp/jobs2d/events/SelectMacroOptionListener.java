@@ -22,13 +22,13 @@ public class SelectMacroOptionListener implements ActionListener {
             case TOGGLE:
                 MacroFeature.toggle();
                 break;
-            case RUN:
-                MacroFeature.run();
+            case LOAD:
+                MacroFeature.load();
                 break;
         }
     }
 
     public enum MacroAction {
-        CLEAR, TOGGLE, RUN
+        CLEAR, TOGGLE, LOAD
     }
 }

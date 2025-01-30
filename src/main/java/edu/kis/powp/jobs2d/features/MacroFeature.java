@@ -24,12 +24,12 @@ public class MacroFeature {
 
         SelectMacroOptionListener clearOption = new SelectMacroOptionListener(MacroAction.CLEAR);
         SelectMacroOptionListener startOption = new SelectMacroOptionListener(MacroAction.TOGGLE);
-        SelectMacroOptionListener runOption = new SelectMacroOptionListener(MacroAction.RUN);
+        SelectMacroOptionListener loadOption = new SelectMacroOptionListener(MacroAction.LOAD);
 
         application.addComponentMenu(MacroFeature.class, "Macro");
         application.addComponentMenuElement(MacroFeature.class, "Clear", clearOption);
         application.addComponentMenuElementWithCheckBox(MacroFeature.class, "Start/Stop", startOption, false);
-        application.addComponentMenuElement(MacroFeature.class, "Run", runOption);
+        application.addComponentMenuElement(MacroFeature.class, "Load", loadOption);
 
         ApplyDriverDecoratorsSubscriber.getInstance().addDriverDecorator(recordMacroDriverDecorator);
         driverManager.addSubscriber(ApplyDriverDecoratorsSubscriber.getInstance());
@@ -44,7 +44,7 @@ public class MacroFeature {
         isRecording = !isRecording;
     }
     
-    public static void run(){
+    public static void load(){
         CompoundCommand command = getRecordedCommand();
         DriverCommandManager manager = CommandsFeature.getDriverCommandManager();
         manager.setCurrentCommand(command);
