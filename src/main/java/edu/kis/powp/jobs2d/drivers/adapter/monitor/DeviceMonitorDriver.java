@@ -1,16 +1,17 @@
 package edu.kis.powp.jobs2d.drivers.adapter.monitor;
 
-import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 import edu.kis.powp.jobs2d.drivers.singleton.DeviceMonitor;
 
 public class DeviceMonitorDriver implements DriverDecorator {
 
-    private Job2dDriver driver;
+    private VisitableJob2dDriver driver;
 
-    public DeviceMonitorDriver() { }
+    public DeviceMonitorDriver() {
+    }
 
-    public DeviceMonitorDriver(Job2dDriver driver) {
+    public DeviceMonitorDriver(VisitableJob2dDriver driver) {
         this.driver = driver;
     }
 
@@ -26,11 +27,12 @@ public class DeviceMonitorDriver implements DriverDecorator {
         DeviceMonitor.getInstance().calculateOperateToDistance(x, y);
     }
 
-    public Job2dDriver getDriver() {
+    public VisitableJob2dDriver getDriver() {
         return this.driver;
     }
 
-    public void setDriver(Job2dDriver driver) {
+    public void setDriver(VisitableJob2dDriver driver) {
         this.driver = driver;
     }
+
 }

@@ -2,6 +2,7 @@ package edu.kis.powp.jobs2d.drivers.observer;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
+import edu.kis.powp.jobs2d.drivers.VisitableJob2dDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.DriverDecorator;
 import edu.kis.powp.observer.Subscriber;
 
@@ -35,8 +36,8 @@ public final class ApplyDriverDecoratorsSubscriber implements Subscriber {
         return driverManager.getCurrentDriver().equals(driverDecorators.get(0));
     }
 
-    private Job2dDriver getDecoratedDriver() {
-        Job2dDriver decoratedDriver = driverManager.getCurrentDriver();
+    private VisitableJob2dDriver getDecoratedDriver() {
+        VisitableJob2dDriver decoratedDriver = driverManager.getCurrentDriver();
         for (int i = driverDecorators.size() - 1; i >= 0; i -= 1) {
             DriverDecorator decorator = driverDecorators.get(i);
             decorator.setDriver(decoratedDriver);

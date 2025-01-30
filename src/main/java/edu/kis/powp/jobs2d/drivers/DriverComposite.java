@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.composite.IDriverComposite;
 
-public class DriverComposite implements Job2dDriver {
-    private List<Job2dDriver> drivers = new ArrayList<>();
+public class DriverComposite implements IDriverComposite {
+    private final List<VisitableJob2dDriver> drivers = new ArrayList<>();
 
-    public void addDriver(Job2dDriver driver) {
+    @Override
+    public void addDriver(VisitableJob2dDriver driver) {
         drivers.add(driver);
     }
 
@@ -24,5 +26,9 @@ public class DriverComposite implements Job2dDriver {
         for (Job2dDriver driver : drivers) {
             driver.setPosition(x, y);
         }
+    }
+
+    public List<VisitableJob2dDriver> getDrivers() {
+        return new ArrayList<>(drivers);
     }
 }
