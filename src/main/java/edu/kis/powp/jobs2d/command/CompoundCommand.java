@@ -5,9 +5,10 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import edu.kis.powp.jobs2d.command.visitor.CommandVisitor;
 
-public final class CompoundCommand implements ICompoundCommand{
+public final class CompoundCommand implements ICompoundCommand {
 
     private final List<DriverCommand> commandList;
     private final String name;
