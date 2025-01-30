@@ -19,15 +19,13 @@ public class CompoundCommandCopyVisitor implements CommandVisitor {
         copiedCommand = new SetPositionCommand(command.getPosX(), command.getPosY());
     }
 
-    @Override
     public void visit(ICompoundCommand command) {
         List<DriverCommand> copiedCommandList = new ArrayList<>();
         Iterator<DriverCommand> iterator = command.iterator();
         while (iterator.hasNext()) {
             DriverCommand cmd = iterator.next();
-            CompoundCommandCopyVisitor visitor = new CompoundCommandCopyVisitor();
-            cmd.accept(visitor);
-            copiedCommandList.add(visitor.getCopiedCommand());
+            cmd.accept(this);
+            copiedCommandList.add(copiedCommand);
         }
         copiedCommand = new CompoundCommand(copiedCommandList, command.toString());
     }
@@ -35,4 +33,5 @@ public class CompoundCommandCopyVisitor implements CommandVisitor {
     public DriverCommand getCopiedCommand() {
         return copiedCommand;
     }
+
 }
