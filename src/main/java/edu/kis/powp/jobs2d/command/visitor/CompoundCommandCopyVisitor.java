@@ -3,6 +3,7 @@ package edu.kis.powp.jobs2d.command.visitor;
 import edu.kis.powp.jobs2d.command.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CompoundCommandCopyVisitor implements CommandVisitor {
@@ -21,7 +22,13 @@ public class CompoundCommandCopyVisitor implements CommandVisitor {
     @Override
     public void visit(ICompoundCommand command) {
         List<DriverCommand> copiedCommandList = new ArrayList<>();
-        command.iterator().forEachRemaining(cmd -> copiedCommandList.add(cmd.copy()));
+        Iterator<DriverCommand> iterator = command.iterator();
+        while (iterator.hasNext()) {
+            DriverCommand cmd = iterator.next();
+            CompoundCommandCopyVisitor visitor = new CompoundCommandCopyVisitor();
+            cmd.accept(visitor);
+            copiedCommandList.add(visitor.getCopiedCommand());
+        }
         copiedCommand = new CompoundCommand(copiedCommandList, command.toString());
     }
 
