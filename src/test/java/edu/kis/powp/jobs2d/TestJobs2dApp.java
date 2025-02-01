@@ -55,6 +55,12 @@ public class TestJobs2dApp {
         application.addTest("Triangle command", new SelectLoadTriangleCommandOptionListener());
 
         application.addTest("Run command", new SelectRunCurrentCommandOptionListener(DriverFeature.getDriverManager()));
+
+        application.addTest("Flip next command vertically", new SelectCommandTransformVisitorListener(new TransformationFlip(TransformationFlipAxis.X)));
+        application.addTest("Flip next command horizontally", new SelectCommandTransformVisitorListener(new TransformationFlip(TransformationFlipAxis.Y)));
+
+        application.addTest("Scale next command down by 50%", new SelectCommandTransformVisitorListener(new TransformationScale(0.5)));
+        application.addTest("Scale next command up by 200%", new SelectCommandTransformVisitorListener(new TransformationScale(2)));
     }
 
     /**
