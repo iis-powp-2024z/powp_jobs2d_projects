@@ -4,6 +4,7 @@ import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.manager.DriverCommandManager;
 import edu.kis.powp.jobs2d.command.visitor.CommandTransformationVisitor;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationMethod;
+import edu.kis.powp.jobs2d.exceptions.CommandNotFoundException;
 import edu.kis.powp.jobs2d.features.CommandsFeature;
 
 import java.awt.event.ActionEvent;
@@ -17,12 +18,12 @@ public class SelectCommandTransformVisitorListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) throws NullPointerException {
+    public void actionPerformed(ActionEvent e) {
         DriverCommandManager manager = CommandsFeature.getDriverCommandManager();
         DriverCommand command = manager.getCurrentCommand();
 
         if (command == null) {
-            throw new NullPointerException("No command has been selected, cannot apply transformation.");
+            throw new CommandNotFoundException("No command has been selected, cannot apply transformation.");
         }
 
         CommandTransformationVisitor commandVisitor = new CommandTransformationVisitor(this.transformationMethod);
