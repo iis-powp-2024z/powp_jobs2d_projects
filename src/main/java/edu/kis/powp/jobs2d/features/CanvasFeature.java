@@ -10,11 +10,13 @@ import javax.swing.JMenuItem;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.canvas.ICanvas;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
+import edu.kis.powp.observer.Publisher;
 
 public class CanvasFeature {
     private static Application application;
     private static List<ICanvas> canvases = null;
     private static ICanvas currentCanvas;
+    private static Publisher changePublisher = new Publisher();
 
     /**
      * Initializes and sets up the canvas feature for the application.
@@ -95,6 +97,7 @@ public class CanvasFeature {
         menuItem.addActionListener(e -> {
             currentCanvas = canvas;
             drawCanvas(canvas);
+            changePublisher.notifyObservers();
         });
         menu.add(menuItem);
     }
@@ -107,5 +110,9 @@ public class CanvasFeature {
     public static void drawCanvas(ICanvas canvas) {
         DriverManager driverManager = DriverFeature.getDriverManager();
         canvas.getCommand().execute(driverManager.getCurrentDriver());
+    }
+
+    public static Publisher getChangePublisher() {
+        return changePublisher;
     }
 }

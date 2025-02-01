@@ -8,6 +8,7 @@ import edu.kis.powp.jobs2d.canvas.ICanvas;
 import edu.kis.powp.jobs2d.canvas.RectangleCanvas;
 import edu.kis.powp.jobs2d.canvas.RectangleCanvas.Format;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindow;
+import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCanvasChangeObserver;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowCommandChangeObserver;
 import edu.kis.powp.jobs2d.command.gui.CommandManagerWindowVisitorChangeObserver;
 import edu.kis.powp.jobs2d.command.parser.jackson.JacksonParserFactory;
@@ -106,8 +107,10 @@ public class TestJobs2dApp {
 
         CommandManagerWindowCommandChangeObserver windowObserver = new CommandManagerWindowCommandChangeObserver(commandManager);
         CommandManagerWindowVisitorChangeObserver visitorObserver = new CommandManagerWindowVisitorChangeObserver(commandManager);
+        CommandManagerWindowCanvasChangeObserver canvasObserver = new CommandManagerWindowCanvasChangeObserver(commandManager);
         CommandsFeature.getDriverCommandManager().getChangePublisher().addSubscriber(windowObserver);
         CommandsFeature.getDriverCommandManager().getChangePublisher().addSubscriber(visitorObserver);
+        CanvasFeature.getChangePublisher().addSubscriber(canvasObserver);
     }
 
     /**
