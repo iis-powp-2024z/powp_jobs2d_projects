@@ -43,7 +43,7 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
 
     public CommandManagerWindow(DriverCommandManager commandManager, CommandParserFactory parserFactory) {
         this.setTitle("Command Manager");
-        this.setMinimumSize(new Dimension(400, 800));
+        this.setMinimumSize(new Dimension(500, 850));
         Container content = this.getContentPane();
         content.setLayout(new GridBagLayout());
 
@@ -91,7 +91,11 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         commandHistoryField = new JTextArea();
         commandHistoryField.setEditable(false);
         commandHistoryField.setBorder(BorderFactory.createTitledBorder("Command History"));
-        c.weighty = 1;
+        commandHistoryField.setRows(10);
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.weighty = 10;
         content.add(new JScrollPane(commandHistoryField), c);
         updateCommandHistoryField();
 
