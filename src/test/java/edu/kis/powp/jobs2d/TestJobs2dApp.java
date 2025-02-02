@@ -94,8 +94,6 @@ public class TestJobs2dApp {
         VisitableJob2dDriver specialRealTimeDriver = new RealTimeDrawingDriverDecorator(specialLineDriver, 100, 1);
         DriverFeature.addDriver("Special Line Simulator (Real Time)", specialRealTimeDriver);
 
-        DriverFeature.addDriverDecorator("Canvas restiction");
-
         // Composite usage
         driverComposite.addDriver(loggerDriver);
         driverComposite.addDriver(basicLineDriver);

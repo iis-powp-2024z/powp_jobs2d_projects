@@ -9,17 +9,17 @@ import java.util.logging.Logger;
 
 public class CanvasRestrictionDriverDecorator implements DriverDecorator {
     private final Logger logger = Logger.getLogger("global");
-    public Job2dDriver driver;
+    public VisitableJob2dDriver driver;
 
-    public CanvasRestrictionDriverDecorator(Job2dDriver driver) {
+    public CanvasRestrictionDriverDecorator(VisitableJob2dDriver driver) {
         this.setDriver(driver);
     }
 
-    public void setDriver(Job2dDriver driver) {
+    public void setDriver(VisitableJob2dDriver driver) {
         this.driver = driver;
     }
 
-    public Job2dDriver getDriver() {
+    public VisitableJob2dDriver getDriver() {
         return this.driver;
     }
 

@@ -9,7 +9,9 @@ import javax.swing.JMenuItem;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.canvas.ICanvas;
+import edu.kis.powp.jobs2d.drivers.CanvasRestrictionDriverDecorator;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
+import edu.kis.powp.jobs2d.drivers.ToggleDriverDecoratorOptionListener;
 import edu.kis.powp.observer.Publisher;
 
 public class CanvasFeature {
@@ -17,6 +19,7 @@ public class CanvasFeature {
     private static List<ICanvas> canvases = null;
     private static ICanvas currentCanvas;
     private static Publisher changePublisher = new Publisher();
+    private static final CanvasRestrictionDriverDecorator driverDecorator = new CanvasRestrictionDriverDecorator(null);
 
     /**
      * Initializes and sets up the canvas feature for the application.
@@ -41,6 +44,8 @@ public class CanvasFeature {
         for (JMenu groupMenu : groupMenus.values()) {
             mainMenu.add(groupMenu);
         }
+
+        addDriverDecorator("Canvas restiction");
     }
 
     public static void setCanvases(List<ICanvas> canvases) {
@@ -100,6 +105,11 @@ public class CanvasFeature {
             changePublisher.notifyObservers();
         });
         menu.add(menuItem);
+    }
+
+    public static void addDriverDecorator(String name) {
+        ToggleDriverDecoratorOptionListener listener = new ToggleDriverDecoratorOptionListener(driverDecorator);
+        application.addComponentMenuElementWithCheckBox(CanvasFeature.class, name, listener, false);
     }
 
     /**
