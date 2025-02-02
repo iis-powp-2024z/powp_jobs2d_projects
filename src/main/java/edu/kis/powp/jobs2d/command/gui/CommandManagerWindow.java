@@ -3,12 +3,15 @@ package edu.kis.powp.jobs2d.command.gui;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.gui.WindowComponent;
+import edu.kis.powp.jobs2d.canvas.ICanvas;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.manager.DriverCommandManager;
 import edu.kis.powp.jobs2d.command.parser.CommandParserFactory;
+import edu.kis.powp.jobs2d.drivers.BoundsExtractorDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.transformation.TransformationScale;
+import edu.kis.powp.jobs2d.features.CanvasFeature;
 import edu.kis.powp.observer.Subscriber;
 
 import javax.swing.*;
@@ -26,11 +29,12 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
     private DrawPanelController drawPanelController = new DrawPanelController();
     private JTextArea userInputField;
     private JTextField newCommandNameField;
-
     private String observerListString;
     private JTextArea observerListField;
-
-
+    private JTextArea currentCanvasField;
+    private ICanvas currentCanvas;
+    private BoundsExtractorDriver boundsExtractorDriver = new BoundsExtractorDriver();
+    private Dimension drawPanelDimension = new Dimension(400, 400);
     /**
      * 
      */
@@ -38,7 +42,7 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
 
     public CommandManagerWindow(DriverCommandManager commandManager, CommandParserFactory parserFactory) {
         this.setTitle("Command Manager");
-        this.setMinimumSize(new Dimension(400, 600));
+        this.setMinimumSize(new Dimension(400, 800));
         Container content = this.getContentPane();
         content.setLayout(new GridBagLayout());
 
@@ -69,17 +73,45 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         c.weightx = 1;
         c.gridx = 0;
         c.weighty = 1;
-        content.add(visitorField,c);
+        content.add(visitorField, c);
         updateVisitorFields();
 
-        JPanel drawPanel = new JPanel();
-        drawPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        drawPanel.setMinimumSize(new Dimension(200, 200));
-        drawPanelController.initialize(drawPanel);
+        currentCanvasField = new JTextArea();
+        updateCurrentCanvasField();
+        currentCanvasField.setEditable(false);
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
         c.gridx = 0;
-        c.weighty = 15;
+        c.weighty = 0;
+        content.add(currentCanvasField, c);
+
+        // Create a fixed-size panel.
+        JPanel drawPanel = new JPanel() {
+            private static final long serialVersionUID = 1L;
+            private final Dimension FIXED_SIZE = drawPanelDimension;
+
+            @Override
+            public Dimension getPreferredSize() {
+                return FIXED_SIZE;
+            }
+
+            @Override
+            public Dimension getMinimumSize() {
+                return FIXED_SIZE;
+            }
+
+            @Override
+            public Dimension getMaximumSize() {
+                return FIXED_SIZE;
+            }
+        };
+
+        drawPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        c.fill = GridBagConstraints.NONE;
+        c.weightx = 0;
+        c.weighty = 0;
+        c.gridx = 0;
+        drawPanelController.initialize(drawPanel);
         content.add(drawPanel, c);
 
         JLabel newCommandNameLabel = new JLabel("New Command name:");
@@ -168,10 +200,21 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         DriverCommand command = commandManager.getCurrentCommand();
         TransformationDriver driver = new TransformationDriver();
         driver.setDriver(new LineDriverAdapter(drawPanelController, LineFactory.getBasicLine(), "basic"));
-        driver.addTransformationMethod(new TransformationScale(0.5));
+        currentCanvas = CanvasFeature.getCurrentCanvas();
+        if (currentCanvas != null) {
+            boundsExtractorDriver.clearBounds();
+            currentCanvas.getCommand().execute(boundsExtractorDriver);
+            driver.addTransformationMethod(new TransformationScale(getBoundsScale()));
+            currentCanvas.getCommand().execute(driver);
+        }
         if (command != null) {
             command.execute(driver);
         }
+    }
+
+    private double getBoundsScale(){
+        Rectangle bounds = boundsExtractorDriver.getBounds();
+        return Math.min(drawPanelDimension.getWidth() / bounds.getWidth(), drawPanelDimension.getHeight() / bounds.getHeight());
     }
 
     private void clearCommand() {
@@ -181,6 +224,11 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
 
     public void updateCurrentCommandField() {
         currentCommandField.setText(commandManager.getCurrentCommandString());
+    }
+
+    public void updateCurrentCanvasField() {
+        currentCanvas = CanvasFeature.getCurrentCanvas();
+        currentCanvasField.setText(currentCanvas != null ? "Canvas: " + currentCanvas.getName() : "No canvas loaded");
     }
 
     public void deleteObservers() {
