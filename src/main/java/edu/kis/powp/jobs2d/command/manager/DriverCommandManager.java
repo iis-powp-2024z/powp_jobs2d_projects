@@ -15,13 +15,17 @@ public class DriverCommandManager {
     private DriverCommand currentCommand = null;
     private Publisher changePublisher = new Publisher();
     private List<CommandVisitor> visitorList= new ArrayList<CommandVisitor>();
+    private final List<DriverCommand> commandHistory = new ArrayList<>();  // Historia poleceń
     /**
      * Set current command.
      * 
-     * @param commandList Set the command as current.
+     * @param command Set the command as current.
      */
-    public synchronized void setCurrentCommand(DriverCommand commandList) {
-        this.currentCommand = commandList;
+    public synchronized void setCurrentCommand(DriverCommand command) {
+        this.currentCommand = command;
+        if (command != null) {
+            commandHistory.add(command);  // Dodanie do historii
+        }
         changePublisher.notifyObservers();
     }
 
@@ -76,5 +80,19 @@ public class DriverCommandManager {
 
     public Publisher getChangePublisher() {
         return changePublisher;
+    }
+
+    /**
+     * Get history of used commands.
+     */
+    public synchronized List<DriverCommand> getCommandHistory() {
+        return new ArrayList<>(commandHistory);  // Zwrot kopi historii
+    }
+
+    /**
+     * Clear history of used commands.
+     */
+    public synchronized void clearCommandHistory() {
+        commandHistory.clear();
     }
 }

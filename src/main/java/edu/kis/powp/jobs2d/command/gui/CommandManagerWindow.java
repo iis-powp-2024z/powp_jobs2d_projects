@@ -35,6 +35,7 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
     private ICanvas currentCanvas;
     private BoundsExtractorDriver boundsExtractorDriver = new BoundsExtractorDriver();
     private Dimension drawPanelDimension = new Dimension(400, 400);
+    private JTextArea commandHistoryField;
     /**
      * 
      */
@@ -59,6 +60,7 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         content.add(observerListField, c);
         updateObserverListField();
 
+        // Aktualne polecenie
         currentCommandField = new JTextArea(commandManager.getCurrentCommandString());
         currentCommandField.setEditable(false);
         c.fill = GridBagConstraints.BOTH;
@@ -84,6 +86,24 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
         c.gridx = 0;
         c.weighty = 0;
         content.add(currentCanvasField, c);
+
+        // Pole historii
+        commandHistoryField = new JTextArea();
+        commandHistoryField.setEditable(false);
+        commandHistoryField.setBorder(BorderFactory.createTitledBorder("Command History"));
+        c.weighty = 1;
+        content.add(new JScrollPane(commandHistoryField), c);
+        updateCommandHistoryField();
+
+
+        // Przycisk czyszczenia historii
+        JButton btnClearHistory = new JButton("Clear History");
+        btnClearHistory.addActionListener((ActionEvent e) -> {
+            commandManager.clearCommandHistory();
+            updateCommandHistoryField();
+        });
+        c.weighty = 0;
+        content.add(btnClearHistory, c);
 
         // Create a fixed-size panel.
         JPanel drawPanel = new JPanel() {
@@ -224,6 +244,16 @@ public class CommandManagerWindow extends JFrame implements WindowComponent {
 
     public void updateCurrentCommandField() {
         currentCommandField.setText(commandManager.getCurrentCommandString());
+        updateCommandHistoryField();  // Dodanie aktualizacji historii
+    }
+
+    public void updateCommandHistoryField() {
+        List<DriverCommand> history = commandManager.getCommandHistory();
+        StringBuilder historyText = new StringBuilder();
+        for (DriverCommand command : history) {
+            historyText.append(command.toString()).append("\n");
+        }
+        commandHistoryField.setText(historyText.toString());
     }
 
     public void updateCurrentCanvasField() {
