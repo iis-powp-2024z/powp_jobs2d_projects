@@ -107,8 +107,8 @@ public class RectangleCanvas extends Canvas{
         int right = width / 2;
         int bottom  = height / 2;
 
-        if (x > right || x < left) return false;
-        return y >= top && y <= bottom;
+        if (x > right + 1 || x < left - 1) return false;
+        return y >= top - 1 && y <= bottom + 1;
     }
 
     /**
