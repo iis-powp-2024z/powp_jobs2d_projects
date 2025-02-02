@@ -7,7 +7,8 @@ import edu.kis.powp.jobs2d.command.CanvasCommandsFactory;
  */
 public class EllipseCanvas extends Canvas {
     private final Type type;
-
+    private Integer ry;
+    private Integer rx;
     /**
      * Creates an ellipse canvas with a predefined type.
      *
@@ -18,6 +19,8 @@ public class EllipseCanvas extends Canvas {
                 type.getRx(), type.getRy(), type.name()), type.name(), type.name()
                 );
         this.type = type;
+        this.rx = type.getRx();
+        this.ry = type.getRy();
     }
     
     /**
@@ -28,6 +31,8 @@ public class EllipseCanvas extends Canvas {
      */
     public EllipseCanvas(int rx, int ry, String name, String group) {
         super(CanvasCommandsFactory.createEllipseCommand(rx, ry, name), name, group);
+        this.rx = rx;
+        this.ry = ry;
         this.type = null; // Indicates custom dimensions
     }
 
@@ -67,6 +72,24 @@ public class EllipseCanvas extends Canvas {
     public Type getType() {
         return type;
     }
+
+    /**
+     * Gets the radius x of the ellipse.
+     *
+     * @return radius x of the ellipse.
+     */
+    public Integer getRx() {
+        return this.rx;
+    }
+
+    /**
+     * Gets the radius y of the ellipse.
+     *
+     * @return radius y of the ellipse.
+     */
+    public Integer getRy() {
+        return this.ry;
+    }
     
     /**
      * Gets the group of the ellipse.
@@ -78,5 +101,16 @@ public class EllipseCanvas extends Canvas {
             return "custom";
         }
         return type.group;
+    }
+
+    /**
+     * Check if point from given coordinates is inside ellipse.
+     *
+     * @return true if inside, else false
+     */
+    public Boolean checkIfPointInside(int x, int y) {
+        double normalizedX = Math.pow(x, 2) / Math.pow(this.getRx(), 2);
+        double normalizedY = Math.pow(y, 2) / Math.pow(this.getRy(), 2);
+        return normalizedX + normalizedY <= 1;
     }
 }

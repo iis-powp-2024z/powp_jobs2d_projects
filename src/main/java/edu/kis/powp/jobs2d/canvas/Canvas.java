@@ -6,7 +6,7 @@ import edu.kis.powp.jobs2d.command.CompoundCommand;
  * Represents a canvas with a specific drawing compound command.
  * Can be drawn.
  */
-public class Canvas implements ICanvas{
+public abstract class Canvas implements ICanvas{
     private final CompoundCommand command;
     private final String name;
     private final String group;
@@ -43,6 +43,6 @@ public class Canvas implements ICanvas{
     public String getGroup() {
         return group;
     }
-    
-    
+
+    public abstract Boolean checkIfPointInside(int x, int y);
 }
