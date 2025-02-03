@@ -102,13 +102,13 @@ public class RectangleCanvas extends Canvas{
     public Boolean checkIfPointInside(int x, int y) {
         int width = this.getWidth();
         int height = this.getHeight();
-        int left = -width / 2;
-        int top = -height / 2;
-        int right = width / 2;
-        int bottom  = height / 2;
+        int left = (int) -Math.floor(width / 2.0);
+        int bottom = (int) -Math.floor(height / 2.0);
+        int right = left+width;
+        int top  = bottom+height;
 
         if (x > right || x < left) return false;
-        return y >= top && y <= bottom;
+        return y >= bottom && y <= top;
     }
 
     /**
